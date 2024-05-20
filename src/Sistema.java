@@ -1,4 +1,4 @@
-package sistema;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,12 @@ public class Sistema implements ISistema {
     // public void setVeiculos(List<Veiculo> veiculos) { this.veiculos = veiculos; }
     // public void setAlugueisAtivos(List<Aluguel> alugueisAtivos) { this.alugueisAtivos = alugueisAtivos; }
     
+    public static void main (String[] args) {
+        System.out.print("\033[H\033[2J"); // limpar terminal antes de começar
+        Sistema sistema = new Sistema(); 
+
+        sistema.listarFuncionarios();
+    }
     
     public void listarFuncionarios() {
         System.out.println("Lista de Funcionários:");
