@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +8,7 @@ import veiculo.*;
 public class Sistema implements ISistema {
     private List<Funcionario> funcionarios;
     private List<Cliente> clientes;
+    
     private List<Veiculo> veiculos;
     private List<Aluguel> alugueisAtivos;
 
@@ -37,9 +36,11 @@ public class Sistema implements ISistema {
     
     public static void main (String[] args) {
         System.out.print("\033[H\033[2J"); // limpar terminal antes de começar
+        
         Sistema sistema = new Sistema(); 
-
         sistema.listarFuncionarios();
+
+
     }
     
     public void listarFuncionarios() {
