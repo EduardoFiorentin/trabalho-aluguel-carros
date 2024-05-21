@@ -1,7 +1,9 @@
 package veiculo;
 
-public class Veiculo implements IVeiculo{
-    private int id;
+import pessoas.Identificavel;
+
+public class Veiculo implements IVeiculo, Identificavel{
+    private String id;
     private String tipoVeiculo;           // carro ou moto 
     private String placa;
     private String modelo;
@@ -15,7 +17,8 @@ public class Veiculo implements IVeiculo{
     private String tipoCombustivel; 
 
     // Construtor
-    public Veiculo(String modelo, String placa, double precoDiaria, int tipoVeiculo, int tipoCombustivel) {
+    public Veiculo(String id, String modelo, String placa, double precoDiaria, int tipoVeiculo, int tipoCombustivel) {
+        setId(id);
         setModelo(modelo);
         setPlaca(placa);
         setPrecoDiaria(precoDiaria);
@@ -24,7 +27,7 @@ public class Veiculo implements IVeiculo{
     }
 
 
-    public int getId() {return id; }
+    public String getId() { return id; }
     public boolean isDisponivel() { return disponivel; }
     public String getTipoVeiculo() { return tipoVeiculo; }
     public String getPlaca() { return placa; }
@@ -37,7 +40,7 @@ public class Veiculo implements IVeiculo{
     public double getPrecoDiaria() { return precoDiaria; }
     public String getTipoCombustivel() { return tipoCombustivel; }
 
-    private void setId(int id) { this.id = id; }
+    private void setId(String id) { this.id = id; }
     private void setPlaca(String placa) { this.placa = placa; }
     private void setModelo(String modelo) { this.modelo = modelo; }
     private void setMarca(String marca) { this.marca = marca; }

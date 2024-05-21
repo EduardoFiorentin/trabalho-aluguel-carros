@@ -8,9 +8,11 @@ import veiculo.*;
 
 public class Sistema {
     private Armazenamento<Pessoa> cadastrados = new Armazenamento<>(); 
+    private Armazenamento<Veiculo> veiculos = new Armazenamento<>();
+    private Armazenamento<Aluguel> alugueisAtivos = new Armazenamento<>();
 
-    private List<Veiculo> veiculos = new ArrayList<>();
-    private List<Aluguel> alugueisAtivos = new ArrayList<>();
+    // private List<Veiculo> veiculos = new ArrayList<>();
+    // private List<Aluguel> alugueisAtivos = new ArrayList<>();
 
     public Sistema() {
 
@@ -27,12 +29,12 @@ public class Sistema {
             new Cliente("2", "Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null)
         ); 
 
-        veiculos.add(new Veiculo("Civic", "azn0023", 30.0, 1, 2));
-        alugueisAtivos.add(new Aluguel(veiculos.get(0), (Cliente)cadastrados.pesquisar("2"), (Funcionario)cadastrados.pesquisar("1"))); 
+        veiculos.adicionar(new Veiculo("8", "Civic", "azn0023", 30.0, 1, 2));
+        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("8"), (Cliente)cadastrados.pesquisar("2"), (Funcionario)cadastrados.pesquisar("1"))); 
     }
 
-    public List<Veiculo> getVeiculos() { return this.veiculos; }
-    public List<Aluguel> getAlugueisAtivos() { return this.alugueisAtivos; }
+    // public List<Veiculo> getVeiculos() { return this.veiculos; }
+    public List<Aluguel> getAlugueisAtivos() { return alugueisAtivos.pesquisar(); }
 
     
     public static void main (String[] args) {
@@ -82,7 +84,7 @@ public class Sistema {
         // Adicionar o Aluguel na lista de alugueis ativos
         // Atualizar a disponibilidade do veículo
         // Retornar o objeto Aluguel
-        Aluguel novoAluguel = new Aluguel(null, null, null);
+        Aluguel novoAluguel = new Aluguel("", null, null, null);
         // armazenar aluguel 
         return true; 
     }

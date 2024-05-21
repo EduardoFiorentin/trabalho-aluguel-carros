@@ -3,13 +3,15 @@ package aluguel;
 import pessoas.*;
 import veiculo.*; 
 
-public class Aluguel {
+public class Aluguel implements Identificavel{
+    private String id; 
     private Veiculo veiculo;
 	private Cliente cliente;
 	private Funcionario funcionarioResponsavel;
     private boolean ativo; 
 
-	public Aluguel(Veiculo veiculo, Cliente cliente, Funcionario funcionarioResponsavel) {
+	public Aluguel(String id, Veiculo veiculo, Cliente cliente, Funcionario funcionarioResponsavel) {
+        setId(id);
         setVeiculo(veiculo);
         setCliente(cliente);
         setFuncionarioResponsavel(funcionarioResponsavel);
@@ -17,12 +19,14 @@ public class Aluguel {
     }
 
     //Metodos
+    public String getId() { return id; }
     public boolean getAtivo() { return ativo; } 
     public Veiculo getVeiculo(){ return veiculo; }
     public Cliente getCliente(){ return cliente; }
     public Funcionario getFuncionarioResponsavel(){ return funcionarioResponsavel; }
     public String getInfo() { return String.format("Cliente: %s - %s | Funcionario: %s - %s | Veículo: %s - %s, %s - placa: %s", cliente.getNome(), cliente.getCpf(), funcionarioResponsavel.getNome(), funcionarioResponsavel.getCargo(), veiculo.getTipoVeiculo(), veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca());}
     
+    public void setId(String id)                { this.id = id; }
     public void setAtivo (boolean ativo)        { this.ativo = ativo; }
     public void setVeiculo(Veiculo veiculo)     { this.veiculo = veiculo; }
     public void setCliente(Cliente cliente)     { this.cliente = cliente; }
