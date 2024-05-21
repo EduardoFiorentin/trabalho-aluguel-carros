@@ -79,7 +79,7 @@ public class Sistema {
     
     // Método para alugar um veículo
     public boolean alugarVeiculo(Cliente cliente, Veiculo veiculo, int dias) {
-        // Verificar disponibilidade do veículo e datas válidas
+        // Verificar disponibilidade do veículo
         // Criar um novo objeto Aluguel
         // Adicionar o Aluguel na lista de alugueis ativos
         // Atualizar a disponibilidade do veículo
