@@ -5,5 +5,4 @@ public interface IVeiculo {
     String tiposVeiculo [] = {"Carro", "Moto", "Patinete"};
     String tiposCombustivel [] = {"Gasolina", "Diesel", "Hibrido", "Eletrico"}; 
 
-    public double calcularPrecoAluguel();
 }

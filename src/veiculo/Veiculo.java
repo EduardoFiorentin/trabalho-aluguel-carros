@@ -16,9 +16,9 @@ public class Veiculo implements IVeiculo{
 
     // Construtor
     public Veiculo(String modelo, String placa, double precoDiaria, int tipoVeiculo, int tipoCombustivel) {
-        this.modelo = modelo;
-        this.placa = placa;
-        this.precoDiaria = precoDiaria;
+        setModelo(modelo);
+        setPlaca(placa);
+        setPrecoDiaria(precoDiaria);
         setTipoVeiculo(tipoVeiculo);
         setTipoCombustivel(tipoCombustivel);
     }
@@ -45,12 +45,12 @@ public class Veiculo implements IVeiculo{
     private void setAno(int ano) { this.ano = ano; }
     private void setCor(String cor) { this.cor = cor; }
     private void setKmRodados(int kmRodados) { this.kmRodados = kmRodados; }
-    private void setDisponivel(boolean disponivel) { this.disponivel = disponivel; }
+    public void setDisponivel(boolean disponivel) { this.disponivel = disponivel; }
     private void setPrecoDiaria(double precoDiaria) { this.precoDiaria = precoDiaria; }
     
     private void setTipoVeiculo(int tipo) { 
         if (tipo > tiposVeiculo.length - 1) {
-            throw new Error("Tipo de veículo inválido!"); 
+            throw new IllegalArgumentException("Tipo de veículo inválido!"); 
         }
 
         this.tipoVeiculo = tiposVeiculo[tipo]; 
@@ -58,16 +58,12 @@ public class Veiculo implements IVeiculo{
     
     private void setTipoCombustivel(int tipo) {
         if (tipo > tiposCombustivel.length - 1) {
-            throw new Error("Tipo de combustivel inválido!"); 
+            throw new IllegalArgumentException("Tipo de combustivel inválido!"); 
         }
     
         this.tipoCombustivel = tiposCombustivel[tipo]; 
     }
-
-    
-    
-    // Método abstrato para calcular o preço do aluguel
-    public double calcularPrecoAluguel() {
-        return 0.5;
-    };
 }
+
+
+

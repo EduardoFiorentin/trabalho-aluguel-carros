@@ -1,6 +1,7 @@
 package pessoas;
 
-public abstract class Pessoa {
+
+public abstract class Pessoa implements Identificavel{
     private String id;
     private String nome;
     private String cpf;
