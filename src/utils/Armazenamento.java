@@ -34,8 +34,16 @@ public class Armazenamento<T extends Identificavel>{
     }
 
     // remover 
-    public boolean remover(T item) {
-        return getArmazenamento().remove(item); 
+    public boolean remover(String id) {
+        
+        for (T item: armazenamento) {
+            if (item.getId().equals(id)) {
+                armazenamento.remove(item);
+                System.out.println("Removeu");
+                return true;
+            } 
+        }
+        return false; 
     }
 
 }

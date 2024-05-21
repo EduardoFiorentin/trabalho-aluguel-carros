@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 import aluguel.*;
@@ -11,12 +10,9 @@ public class Sistema {
     private Armazenamento<Veiculo> veiculos = new Armazenamento<>();
     private Armazenamento<Aluguel> alugueisAtivos = new Armazenamento<>();
 
-    // private List<Veiculo> veiculos = new ArrayList<>();
-    // private List<Aluguel> alugueisAtivos = new ArrayList<>();
-
     public Sistema() {
 
-        // adicionar funcionarios 
+        // adicionar funcionarios         
         cadastrados.adicionar(
             new Funcionario("0", "Eduardo", "000.000.000-00", "Rua S, 22", "00 90000-0000", "Supervisor", 10500.0)
         ); 
@@ -25,9 +21,7 @@ public class Sistema {
             new Funcionario("1", "Mario", "000.000.000-01", "Rua D, 12", "00 60000-0000", "Estagiario", 500.0)
         ); 
 
-        cadastrados.adicionar(
-            new Cliente("2", "Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null)
-        ); 
+        cadastrarCliente("2", "Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null);
 
         veiculos.adicionar(new Veiculo("8", "Civic", "azn0023", 30.0, 1, 2));
         alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("8"), (Cliente)cadastrados.pesquisar("2"), (Funcionario)cadastrados.pesquisar("1"))); 
@@ -40,10 +34,12 @@ public class Sistema {
     public static void main (String[] args) {
         System.out.print("\033[H\033[2J"); // limpar terminal antes de começar
         Sistema sistema = new Sistema(); 
-        sistema.listarFuncionarios();
+        // sistema.listarFuncionarios();
         sistema.listarClientes();
-        sistema.listarAlugueisAtivos();
-        
+        // sistema.listarAlugueisAtivos();
+        sistema.removerCliente("2");
+        // sistema.listarAlugueisAtivos();
+        sistema.listarClientes();
 
     }
     
@@ -79,22 +75,15 @@ public class Sistema {
     
     // Método para alugar um veículo
     public boolean alugarVeiculo(Cliente cliente, Veiculo veiculo, int dias) {
-        // Verificar disponibilidade do veículo
-        // Criar um novo objeto Aluguel
-        // Adicionar o Aluguel na lista de alugueis ativos
-        // Atualizar a disponibilidade do veículo
-        // Retornar o objeto Aluguel
         Aluguel novoAluguel = new Aluguel("", null, null, null);
-        // armazenar aluguel 
+        alugueisAtivos.adicionar(novoAluguel); 
         return true; 
     }
 
     // Método para finalizar um aluguel
-    public void finalizarAluguel(Aluguel aluguel) {
-        // Calcular o valor total do aluguel
-        // Registrar o pagamento
-        // Remover o Aluguel da lista de alugueis ativos
-        // Atualizar a disponibilidade do veículo
+    public void finalizarAluguel(String id) {
+        Aluguel aluguel = alugueisAtivos.pesquisar(id);
+        aluguel.finalizar();
     }
 
     public void listarAlugueisAtivos() {
@@ -105,10 +94,20 @@ public class Sistema {
     }; 
     
     // CRUD Clientes 
-    public boolean cadastrarCliente() {
+    public boolean cadastrarCliente(String id, String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) {
+        Cliente novoCliente = new Cliente(id, nome, cpf, dataNascimento, endereco, telefone, email, cnh);
+        cadastrados.adicionar(novoCliente);
         return true; 
     } 
 
+    public boolean removerCliente(String id) {
+        return cadastrados.remover(id); 
+    }
 
+    public boolean cadastrarFuncionario(String id, String nome, String cpf, String endereco, String telefone, String cargo, double salario) {
+        Funcionario novoFuncionario = new Funcionario(id, nome, cpf, endereco, telefone, cargo, salario); 
+        cadastrados.adicionar(novoFuncionario);
+        return true; 
+    }
 
 }
