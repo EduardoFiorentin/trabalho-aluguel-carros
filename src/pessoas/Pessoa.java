@@ -31,5 +31,5 @@ public abstract class Pessoa implements Identificavel{
     public void setTelefone(String telefone) { this.telefone = telefone; }
     
     
-    public abstract String getTipoPessoa();
+    public abstract String getTipo();
 }

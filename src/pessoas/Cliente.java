@@ -5,8 +5,8 @@ public class Cliente extends Pessoa {
     private String cnh;
     private String dataNascimento;
 
-    public Cliente(String id, String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) {
-        super(id, nome, cpf, endereco, telefone);
+    public Cliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) {
+        super(cpf.replace(".", "").replace("-", ""), nome, cpf, endereco, telefone);
         this.email = email;
         this.cnh = cnh;
         this.dataNascimento = dataNascimento;
@@ -23,7 +23,7 @@ public class Cliente extends Pessoa {
 
 
     @Override
-    public String getTipoPessoa() {
+    public String getTipo() {
         return "Cliente";
     }
 }

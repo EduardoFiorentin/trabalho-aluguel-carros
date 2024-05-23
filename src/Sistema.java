@@ -1,7 +1,8 @@
-import java.util.List;
 import aluguel.*;
+import java.util.List;
 import pessoas.*;
 import utils.Armazenamento;
+import utils.UniqueIDGenerator;
 import veiculo.*;
 
 public class Sistema implements ISistema{
@@ -20,10 +21,10 @@ public class Sistema implements ISistema{
             new Funcionario("1", "Mario", "000.000.000-01", "Rua D, 12", "00 60000-0000", "Estagiario", 500.0)
         ); 
 
-        cadastrarCliente("2", "Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null);
+        cadastrarCliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null);
 
         veiculos.adicionar(new Veiculo("8", "Civic", "azn0023", 30.0, 1, 2));
-        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("8"), (Cliente)cadastrados.pesquisar("2"), (Funcionario)cadastrados.pesquisar("1"), (10))); 
+        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("8"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("1"), (10))); 
     }
 
     // public List<Veiculo> getVeiculos() { return this.veiculos; }
@@ -36,7 +37,10 @@ public class Sistema implements ISistema{
         // sistema.listarFuncionarios();
         sistema.listarClientes();
         // sistema.listarAlugueisAtivos();
-        sistema.removerCliente("2");
+        sistema.listarFuncionarios();
+
+        sistema.listarAlugueisAtivos();
+        // sistema.removerCliente("2");
         // sistema.listarAlugueisAtivos();
         sistema.listarClientes();
 
@@ -81,8 +85,8 @@ public class Sistema implements ISistema{
     }; 
     
     // CRUD Clientes 
-    public boolean cadastrarCliente(String id, String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) {
-        Cliente novoCliente = new Cliente(id, nome, cpf, dataNascimento, endereco, telefone, email, cnh);
+    public boolean cadastrarCliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) {
+        Cliente novoCliente = new Cliente(nome, cpf, dataNascimento, endereco, telefone, email, cnh);
         cadastrados.adicionar(novoCliente);
         return true; 
     } 
@@ -99,8 +103,8 @@ public class Sistema implements ISistema{
 
     @Override
     public void finalizarAluguel(Aluguel aluguel) {
-        Aluguel alugar = alugueisAtivos.pesquisar(aluguel.getId());
-        alugar.finalizar();
+        Aluguel aluguelFinalizado = alugueisAtivos.pesquisar(aluguel.getId());
+        aluguelFinalizado.finalizar();
     }
 
     @Override

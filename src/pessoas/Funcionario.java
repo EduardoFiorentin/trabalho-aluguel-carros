@@ -20,7 +20,7 @@ public class Funcionario extends Pessoa {
 
 
     @Override
-    public String getTipoPessoa() {
+    public String getTipo() {
         return "Funcionário";
     }
 }

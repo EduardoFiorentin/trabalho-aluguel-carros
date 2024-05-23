@@ -1,3 +1,4 @@
+package utils;
 import java.util.UUID;
 //Gerador unico de ID
 public class UniqueIDGenerator {

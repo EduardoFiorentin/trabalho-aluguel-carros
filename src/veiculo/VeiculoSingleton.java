@@ -1,4 +1,4 @@
-//package veiculo;/
+package veiculo;
 //Qual das suas abordagens é melhor ficaria como objeto Singleton.
 //Singleton é utilizado para atributos estaticos. 
 import java.util.Arrays;
