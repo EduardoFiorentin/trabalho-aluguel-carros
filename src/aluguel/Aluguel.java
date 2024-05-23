@@ -8,13 +8,15 @@ public class Aluguel implements Identificavel{
     private Veiculo veiculo;
 	private Cliente cliente;
 	private Funcionario funcionarioResponsavel;
-    private boolean ativo; 
+    private boolean ativo;
+    private int diasDeAluguel;
 
-	public Aluguel(String id, Veiculo veiculo, Cliente cliente, Funcionario funcionarioResponsavel) {
+	public Aluguel(String id, Veiculo veiculo, Cliente cliente, Funcionario funcionarioResponsavel, int diasDeAluguel) {
         setId(id);
         setVeiculo(veiculo);
         setCliente(cliente);
         setFuncionarioResponsavel(funcionarioResponsavel);
+        setDiasDeAluguel(diasDeAluguel);
         iniciar();
     }
 
@@ -25,12 +27,14 @@ public class Aluguel implements Identificavel{
     public Cliente getCliente(){ return cliente; }
     public Funcionario getFuncionarioResponsavel(){ return funcionarioResponsavel; }
     public String getInfo() { return String.format("Cliente: %s - %s | Funcionario: %s - %s | Veículo: %s - %s, %s - placa: %s", cliente.getNome(), cliente.getCpf(), funcionarioResponsavel.getNome(), funcionarioResponsavel.getCargo(), veiculo.getTipoVeiculo(), veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca());}
-    
+    public int getDiasDeAluguel() {return diasDeAluguel;}
+
     public void setId(String id)                { this.id = id; }
     public void setAtivo (boolean ativo)        { this.ativo = ativo; }
     public void setVeiculo(Veiculo veiculo)     { this.veiculo = veiculo; }
     public void setCliente(Cliente cliente)     { this.cliente = cliente; }
-
+    public void setDiasDeAluguel(int diasDeAluguel) { this.diasDeAluguel = diasDeAluguel;}
+    
     public void setFuncionarioResponsavel(Funcionario funcionarioResponsavel)   { this.funcionarioResponsavel = funcionarioResponsavel; }
 
     public void iniciar() {

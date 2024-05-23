@@ -1,11 +1,10 @@
 import java.util.List;
-
 import aluguel.*;
 import pessoas.*;
 import utils.Armazenamento;
 import veiculo.*;
 
-public class Sistema {
+public class Sistema implements ISistema{
     private Armazenamento<Pessoa> cadastrados = new Armazenamento<>(); 
     private Armazenamento<Veiculo> veiculos = new Armazenamento<>();
     private Armazenamento<Aluguel> alugueisAtivos = new Armazenamento<>();
@@ -24,7 +23,7 @@ public class Sistema {
         cadastrarCliente("2", "Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null);
 
         veiculos.adicionar(new Veiculo("8", "Civic", "azn0023", 30.0, 1, 2));
-        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("8"), (Cliente)cadastrados.pesquisar("2"), (Funcionario)cadastrados.pesquisar("1"))); 
+        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("8"), (Cliente)cadastrados.pesquisar("2"), (Funcionario)cadastrados.pesquisar("1"), (10))); 
     }
 
     // public List<Veiculo> getVeiculos() { return this.veiculos; }
@@ -69,22 +68,10 @@ public class Sistema {
         }
         
     }
-    
-    
+        
     // CRUD Aluguel 
     
-    // Método para alugar um veículo
-    public boolean alugarVeiculo(Cliente cliente, Veiculo veiculo, int dias) {
-        Aluguel novoAluguel = new Aluguel("", null, null, null);
-        alugueisAtivos.adicionar(novoAluguel); 
-        return true; 
-    }
-
     // Método para finalizar um aluguel
-    public void finalizarAluguel(String id) {
-        Aluguel aluguel = alugueisAtivos.pesquisar(id);
-        aluguel.finalizar();
-    }
 
     public void listarAlugueisAtivos() {
         System.out.println("Alugueis:");
@@ -108,6 +95,20 @@ public class Sistema {
         Funcionario novoFuncionario = new Funcionario(id, nome, cpf, endereco, telefone, cargo, salario); 
         cadastrados.adicionar(novoFuncionario);
         return true; 
+    }
+
+    @Override
+    public void finalizarAluguel(Aluguel aluguel) {
+        Aluguel alugar = alugueisAtivos.pesquisar(aluguel.getId());
+        alugar.finalizar();
+    }
+
+    @Override
+    public boolean alugarVeiculo(Cliente cliente, Veiculo veiculo, int dias, Funcionario funcionarioResponsavel) {
+        Aluguel aluguel = new Aluguel(UniqueIDGenerator.generateUniqueID(), veiculo, cliente, funcionarioResponsavel, dias);
+            alugueisAtivos.adicionar(aluguel);
+
+        return true;
     }
 
 }
