@@ -1,7 +1,11 @@
 package aluguel;
 
 import pessoas.*;
+import utils.Armazenamento;
 import veiculo.*; 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Aluguel implements Identificavel{
     private String id; 
@@ -46,4 +50,6 @@ public class Aluguel implements Identificavel{
         veiculo.setDisponivel(true);
         setAtivo(false);
     }
+
+
 }

@@ -1,4 +1,6 @@
 import aluguel.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import pessoas.*;
 import utils.Armazenamento;
@@ -24,15 +26,18 @@ public class Sistema implements ISistema{
         cadastrarCliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null);
 
         veiculos.adicionar(new Veiculo("8", "Civic", "azn0023", 30.0, 1, 2));
-        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("8"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("1"), (10))); 
+        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("8").get(0), (Cliente)cadastrados.pesquisar("00000000201").get(0), (Funcionario)cadastrados.pesquisar("1").get(0), (10))); 
+
+        // cadastrados.pesquisar("00000000201").get(0).nome = "Genesio";
     }
 
     // public List<Veiculo> getVeiculos() { return this.veiculos; }
     public List<Aluguel> getAlugueisAtivos() { return alugueisAtivos.pesquisar(); }
+    public Armazenamento<Aluguel> getArmazenamentoAlugueis() { return alugueisAtivos; }
 
     
     public static void main (String[] args) {
-        System.out.print("\033[H\033[2J"); // limpar terminal antes de começar
+        System.out.println("\033[H\033[2J"); // limpar terminal antes de começar
         Sistema sistema = new Sistema(); 
         // sistema.listarFuncionarios();
         sistema.listarClientes();
@@ -42,6 +47,7 @@ public class Sistema implements ISistema{
         sistema.listarAlugueisAtivos();
         // sistema.removerCliente("2");
         // sistema.listarAlugueisAtivos();
+        
         sistema.listarClientes();
 
     }
@@ -84,7 +90,7 @@ public class Sistema implements ISistema{
         }; 
     }; 
     
-    // CRUD Clientes 
+    // metodos gerenciamento de pessoas  
     public boolean cadastrarCliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) {
         Cliente novoCliente = new Cliente(nome, cpf, dataNascimento, endereco, telefone, email, cnh);
         cadastrados.adicionar(novoCliente);
@@ -101,18 +107,47 @@ public class Sistema implements ISistema{
         return true; 
     }
 
-    @Override
-    public void finalizarAluguel(Aluguel aluguel) {
-        Aluguel aluguelFinalizado = alugueisAtivos.pesquisar(aluguel.getId());
-        aluguelFinalizado.finalizar();
+
+    // metodos gerenciamento de aluguel 
+    public void finalizarAluguel(String IdCliente) {
+
+        List<Aluguel> alugueisDoCliente = pesquisarAlugadosPorCliente(IdCliente);
+        Aluguel aluguelFinalizar = null; 
+
+        if (alugueisDoCliente.size() == 0) {
+            return; 
+        }
+
+        if (alugueisDoCliente.size() == 1) aluguelFinalizar = alugueisDoCliente.get(0); 
+
+        if (alugueisDoCliente.size() > 1) {
+            // logica de escolha 
+        }
+
+        // testar se a mudança será salva no armazenamento após chamar o finalizar 
+        if (aluguelFinalizar != null ) aluguelFinalizar.finalizar();
+
+        else throw new Error("Aluguel não encontrado!"); 
     }
 
-    @Override
     public boolean alugarVeiculo(Cliente cliente, Veiculo veiculo, int dias, Funcionario funcionarioResponsavel) {
         Aluguel aluguel = new Aluguel(UniqueIDGenerator.generateUniqueID(), veiculo, cliente, funcionarioResponsavel, dias);
-            alugueisAtivos.adicionar(aluguel);
+        alugueisAtivos.adicionar(aluguel);
 
         return true;
+    }
+
+    public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) {
+        List<Aluguel> alugueisAtivos = new ArrayList<>();
+
+
+        for (Aluguel aluguel : getArmazenamentoAlugueis().pesquisar()) {
+            if (aluguel.getCliente().getId().equals(idCLiente) && aluguel.getAtivo()) {
+                alugueisAtivos.add(aluguel);
+            }
+        }
+
+        return alugueisAtivos; 
     }
 
 }

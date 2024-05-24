@@ -3,7 +3,7 @@ package pessoas;
 
 public abstract class Pessoa implements Identificavel{
     private String id;
-    private String nome;
+    public String nome;
     private String cpf;
     private String endereco;
     private String telefone;
