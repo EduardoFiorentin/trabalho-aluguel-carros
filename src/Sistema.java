@@ -1,5 +1,4 @@
 import aluguel.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import pessoas.*;
@@ -40,15 +39,18 @@ public class Sistema implements ISistema{
         System.out.println("\033[H\033[2J"); // limpar terminal antes de começar
         Sistema sistema = new Sistema(); 
         // sistema.listarFuncionarios();
-        sistema.listarClientes();
+        // sistema.listarClientes();
         // sistema.listarAlugueisAtivos();
-        sistema.listarFuncionarios();
+        // sistema.listarFuncionarios();
 
         sistema.listarAlugueisAtivos();
         // sistema.removerCliente("2");
         // sistema.listarAlugueisAtivos();
+        sistema.finalizarAluguel("00000000201");
         
-        sistema.listarClientes();
+        sistema.listarAlugueisAtivos();
+
+        // sistema.listarClientes();
 
     }
     

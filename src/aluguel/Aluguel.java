@@ -1,10 +1,7 @@
 package aluguel;
 
 import pessoas.*;
-import utils.Armazenamento;
-import veiculo.*; 
-import java.util.ArrayList;
-import java.util.List;
+import veiculo.*;
 
 
 public class Aluguel implements Identificavel{
@@ -30,7 +27,7 @@ public class Aluguel implements Identificavel{
     public Veiculo getVeiculo(){ return veiculo; }
     public Cliente getCliente(){ return cliente; }
     public Funcionario getFuncionarioResponsavel(){ return funcionarioResponsavel; }
-    public String getInfo() { return String.format("Cliente: %s - %s | Funcionario: %s - %s | Veículo: %s - %s, %s - placa: %s", cliente.getNome(), cliente.getCpf(), funcionarioResponsavel.getNome(), funcionarioResponsavel.getCargo(), veiculo.getTipoVeiculo(), veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca());}
+    public String getInfo() { return String.format("Cliente: %s - %s | Funcionario: %s - %s | Veículo: %s - %s, %s - placa: %s | ativo: %s", cliente.getNome(), cliente.getCpf(), funcionarioResponsavel.getNome(), funcionarioResponsavel.getCargo(), veiculo.getTipoVeiculo(), veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), getAtivo() ? "sim": "não");}
     public int getDiasDeAluguel() {return diasDeAluguel;}
 
     public void setId(String id)                { this.id = id; }
