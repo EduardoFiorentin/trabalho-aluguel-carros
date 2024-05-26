@@ -1,10 +1,16 @@
 import aluguel.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.management.RuntimeErrorException;
+
 import pessoas.*;
 import utils.Armazenamento;
 import utils.UniqueIDGenerator;
 import veiculo.*;
+import exceptions.*;
+
+// funções de adição de aluguel 
 
 public class Sistema implements ISistema{
     private Armazenamento<Pessoa> cadastrados = new Armazenamento<>(); 
@@ -24,18 +30,21 @@ public class Sistema implements ISistema{
 
         cadastrarCliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null);
 
-        veiculos.adicionar(new Veiculo("8", "Civic", "azn0023", 30.0, 1, 2));
-        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("8").get(0), (Cliente)cadastrados.pesquisar("00000000201").get(0), (Funcionario)cadastrados.pesquisar("1").get(0), (10))); 
+        veiculos.adicionar(new Veiculo("1", "UN-43", "azn0023", 30.0, 0, 2, "Uno", "GMB", "2000", "Laranja", 15000));
+        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("1"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("1"), (10))); 
 
         // cadastrados.pesquisar("00000000201").get(0).nome = "Genesio";
     }
 
     // public List<Veiculo> getVeiculos() { return this.veiculos; }
     public List<Aluguel> getAlugueisAtivos() { return alugueisAtivos.pesquisar(); }
+
     public Armazenamento<Aluguel> getArmazenamentoAlugueis() { return alugueisAtivos; }
+    public Armazenamento<Pessoa> getArmazenamentoCadastrados() {return cadastrados; }
 
     
     public static void main (String[] args) {
+        try {
         System.out.println("\033[H\033[2J"); // limpar terminal antes de começar
         Sistema sistema = new Sistema(); 
         // sistema.listarFuncionarios();
@@ -46,12 +55,16 @@ public class Sistema implements ISistema{
         sistema.listarAlugueisAtivos();
         // sistema.removerCliente("2");
         // sistema.listarAlugueisAtivos();
-        sistema.finalizarAluguel("00000000201");
+        sistema.finalizarAluguel("00000000201", "1");
+        System.out.println(sistema.getArmazenamentoCadastrados().pesquisar("00000000201").getInfo());
         
         sistema.listarAlugueisAtivos();
-
+        
         // sistema.listarClientes();
-
+    } 
+    catch(RuntimeException ex) {
+        System.out.println(ex.getMessage());
+    }
     }
     
     public void listarFuncionarios() {
@@ -85,12 +98,7 @@ public class Sistema implements ISistema{
     
     // Método para finalizar um aluguel
 
-    public void listarAlugueisAtivos() {
-        System.out.println("Alugueis:");
-        for (Aluguel aluguel : getAlugueisAtivos()) {
-            System.out.println(aluguel.getInfo());
-        }; 
-    }; 
+
     
     // metodos gerenciamento de pessoas  
     public boolean cadastrarCliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) {
@@ -110,26 +118,31 @@ public class Sistema implements ISistema{
     }
 
 
-    // metodos gerenciamento de aluguel 
-    public void finalizarAluguel(String IdCliente) {
+    public void listarAlugueisAtivos() {
+        System.out.println("Alugueis:");
+        for (Aluguel aluguel : getAlugueisAtivos()) {
+            System.out.println(aluguel.getInfo());
+        }; 
+    }; 
 
-        List<Aluguel> alugueisDoCliente = pesquisarAlugadosPorCliente(IdCliente);
-        Aluguel aluguelFinalizar = null; 
+    // metodos gerenciamento de aluguel 
+    public void finalizarAluguel(String idCliente, String idVeiculo) {
+
+        List<Aluguel> alugueisDoCliente = pesquisarAlugadosPorCliente(idCliente);
 
         if (alugueisDoCliente.size() == 0) {
-            return; 
+            throw new RuntimeException("O cliente ID: "+idCliente+" não possui alugueis ativos");
         }
 
-        if (alugueisDoCliente.size() == 1) aluguelFinalizar = alugueisDoCliente.get(0); 
-
-        if (alugueisDoCliente.size() > 1) {
-            // logica de escolha 
+        for (Aluguel aluguel: alugueisDoCliente) {
+            if (aluguel.getVeiculo().getId().equals(idVeiculo)) {
+                aluguel.finalizar();
+                return; 
+            }
         }
 
         // testar se a mudança será salva no armazenamento após chamar o finalizar 
-        if (aluguelFinalizar != null ) aluguelFinalizar.finalizar();
-
-        else throw new Error("Aluguel não encontrado!"); 
+        throw new Error("Aluguel não encontrado!"); 
     }
 
     public boolean alugarVeiculo(Cliente cliente, Veiculo veiculo, int dias, Funcionario funcionarioResponsavel) {

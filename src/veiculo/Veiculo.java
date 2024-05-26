@@ -11,7 +11,7 @@ public class Veiculo implements Identificavel{
     private String modelo;
     private String marca;
     private String categoria;
-    private int ano;
+    private String ano;
     private String cor;
     private int kmRodados;
     private boolean disponivel;
@@ -19,14 +19,18 @@ public class Veiculo implements Identificavel{
     private String tipoCombustivel;
 
     // Construtor
-    public Veiculo(String id, String modelo, String placa, double precoDiaria, int tipoVeiculo, int tipoCombustivel) {
+    public Veiculo(String id, String modelo, String placa, double precoDiaria, int tipoVeiculo, int tipoCombustivel, String marca, String categoria, String ano, String cor, int kmRodados) {
         setId(id);
         setModelo(modelo);
         setPlaca(placa);
         setPrecoDiaria(precoDiaria);
         setTipoVeiculo(tipoVeiculo);
         setTipoCombustivel(tipoCombustivel);
-    
+        setCategoria(categoria);
+        setMarca(marca);
+        setAno(ano);
+        setCor(cor);
+        setKmRodados(tipoCombustivel);
     }
 
 
@@ -37,7 +41,7 @@ public class Veiculo implements Identificavel{
     public String getModelo() { return modelo; }
     public String getMarca() { return marca; }
     public String getCategoria() { return categoria; }
-    public int getAno() { return ano; }
+    public String getAno() { return ano; }
     public String getCor() { return cor; }
     public int getKmRodados() { return kmRodados; }
     public double getPrecoDiaria() { return precoDiaria; }
@@ -48,11 +52,9 @@ public class Veiculo implements Identificavel{
     private void setModelo(String modelo) { this.modelo = modelo; }
     public void setDisponivel(boolean disponivel) { this.disponivel = disponivel; }
     private void setPrecoDiaria(double precoDiaria) { this.precoDiaria = precoDiaria; }
-
-    //Setters que não estão sendo utilizados.
     private void setMarca(String marca) { this.marca = marca; }
     private void setCategoria(String categoria) { this.categoria = categoria; }
-    private void setAno(int ano) { this.ano = ano; }
+    private void setAno(String ano) { this.ano = ano; }
     private void setCor(String cor) { this.cor = cor; }
     private void setKmRodados(int kmRodados) { this.kmRodados = kmRodados; }
 

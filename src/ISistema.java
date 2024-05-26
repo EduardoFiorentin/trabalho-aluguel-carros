@@ -17,5 +17,5 @@ public interface ISistema {
 
     // metodos de gestao de alugueis 
     public boolean alugarVeiculo(Cliente cliente, Veiculo veiculo, int dias, Funcionario funciomarioResponsavel);
-    public void finalizarAluguel(String idCliente);
+    public void finalizarAluguel(String idCliente, String idVeiculo);
 }

@@ -20,7 +20,7 @@ public class Funcionario extends Pessoa {
 
 
     @Override
-    public String getTipo() {
-        return "Funcionário";
+    public String getInfo() {
+        return String.format("Informações de funcionário: \n\tId: %s\n\tNome: %s\n\tCargo: %s", getId(), getNome(), getCargo());
     }
 }

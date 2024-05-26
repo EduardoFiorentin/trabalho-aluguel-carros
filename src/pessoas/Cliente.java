@@ -23,7 +23,7 @@ public class Cliente extends Pessoa {
 
 
     @Override
-    public String getTipo() {
-        return "Cliente";
+    public String getInfo() {
+        return String.format("Informações de cliente: \n\tId: %s\n\tNome: %s\n\tCPF: %s\n\tCNH: %s\n\tEndereço: %s\n\tTelefone: %s\n", getId(), getNome(), getCpf(), getCnh(), getEndereco(), getTelefone());
     }
 }

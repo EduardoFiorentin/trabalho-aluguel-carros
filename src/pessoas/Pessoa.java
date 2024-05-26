@@ -3,7 +3,7 @@ package pessoas;
 
 public abstract class Pessoa implements Identificavel{
     private String id;
-    public String nome;
+    private String nome;
     private String cpf;
     private String endereco;
     private String telefone;
@@ -31,5 +31,5 @@ public abstract class Pessoa implements Identificavel{
     public void setTelefone(String telefone) { this.telefone = telefone; }
     
     
-    public abstract String getTipo();
+    public abstract String getInfo();
 }

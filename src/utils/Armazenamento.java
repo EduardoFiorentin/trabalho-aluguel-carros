@@ -16,13 +16,12 @@ public class Armazenamento<T extends Identificavel>{
     }
     
     // pesquisar por id 
-    public List<T> pesquisar(String id) {
-        List<T> itens = new ArrayList<>(); 
-
+    public T pesquisar(String id) {
         for (T item: getArmazenamento()) {
-            if (item.getId().equals(id)) itens.add(item); 
+            if (item.getId().equals(id)) return item; 
         }
-        return itens; 
+
+        return null; 
     }
 
     // adicionar 
