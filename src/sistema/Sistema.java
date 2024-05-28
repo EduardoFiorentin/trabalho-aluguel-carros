@@ -1,3 +1,4 @@
+package sistema;
 import aluguel.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,32 +42,8 @@ public class Sistema implements ISistema{
 
     public Armazenamento<Aluguel> getArmazenamentoAlugueis() { return alugueisAtivos; }
     public Armazenamento<Pessoa> getArmazenamentoCadastrados() {return cadastrados; }
-
     
-    public static void main (String[] args) {
-        try {
-        System.out.println("\033[H\033[2J"); // limpar terminal antes de começar
-        Sistema sistema = new Sistema(); 
-        // sistema.listarFuncionarios();
-        // sistema.listarClientes();
-        // sistema.listarAlugueisAtivos();
-        // sistema.listarFuncionarios();
 
-        sistema.listarAlugueisAtivos();
-        // sistema.removerCliente("2");
-        // sistema.listarAlugueisAtivos();
-        sistema.finalizarAluguel("00000000201", "1");
-        System.out.println(sistema.getArmazenamentoCadastrados().pesquisar("00000000201").getInfo());
-        
-        sistema.listarAlugueisAtivos();
-        
-        // sistema.listarClientes();
-    } 
-    catch(RuntimeException ex) {
-        System.out.println(ex.getMessage());
-    }
-    }
-    
     public void listarFuncionarios() {
         System.out.println("Lista de Funcionários:");
         List<Pessoa> pessoas = cadastrados.pesquisar(); 
@@ -126,12 +103,12 @@ public class Sistema implements ISistema{
     }; 
 
     // metodos gerenciamento de aluguel 
-    public void finalizarAluguel(String idCliente, String idVeiculo) {
+    public void finalizarAluguel(String idCliente, String idVeiculo) throws AluguelNaoEncontradoException, ClienteNaoEncontradoException {
 
         List<Aluguel> alugueisDoCliente = pesquisarAlugadosPorCliente(idCliente);
 
         if (alugueisDoCliente.size() == 0) {
-            throw new RuntimeException("O cliente ID: "+idCliente+" não possui alugueis ativos");
+            throw new AluguelNaoEncontradoException("O cliente ID: "+idCliente+" não possui alugueis ativos");
         }
 
         for (Aluguel aluguel: alugueisDoCliente) {
@@ -142,7 +119,7 @@ public class Sistema implements ISistema{
         }
 
         // testar se a mudança será salva no armazenamento após chamar o finalizar 
-        throw new Error("Aluguel não encontrado!"); 
+        throw new AluguelNaoEncontradoException("Aluguel não encontrado!");
     }
 
     public boolean alugarVeiculo(Cliente cliente, Veiculo veiculo, int dias, Funcionario funcionarioResponsavel) {
@@ -152,17 +129,20 @@ public class Sistema implements ISistema{
         return true;
     }
 
-    public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) {
+    public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) throws ClienteNaoEncontradoException {
+        // verificar se cliente existe 
+        Pessoa cliente = getArmazenamentoCadastrados().pesquisar(idCLiente); 
+        if (cliente == null) throw new ClienteNaoEncontradoException("CLiente com ID: "+idCLiente+" não existe!");
+        
+        // verificar se cliente tem alugueis ativos
         List<Aluguel> alugueisAtivos = new ArrayList<>();
-
-
         for (Aluguel aluguel : getArmazenamentoAlugueis().pesquisar()) {
             if (aluguel.getCliente().getId().equals(idCLiente) && aluguel.getAtivo()) {
                 alugueisAtivos.add(aluguel);
             }
         }
 
-        return alugueisAtivos; 
+        return alugueisAtivos;
     }
 
 }
