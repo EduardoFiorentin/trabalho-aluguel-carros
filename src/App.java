@@ -32,7 +32,6 @@ import sistema.Sistema;
     // aluguel já finalizado 
     
 
-// ddddddddddddddddddddddddddddddddddddddddddddddddddd
 
 // sistema de login 
 // seleção automatica do funcionário na criação de Aluguel 

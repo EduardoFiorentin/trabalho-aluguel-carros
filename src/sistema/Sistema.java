@@ -3,7 +3,6 @@ import aluguel.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
 
 import pessoas.*;
 import utils.Armazenamento;
