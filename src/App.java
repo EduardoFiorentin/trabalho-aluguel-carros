@@ -32,6 +32,9 @@ import sistema.Sistema;
     // aluguel já finalizado 
     
 
+// sistema de login 
+// seleção automatica do funcionário na criação de Aluguel 
+
 public class App {
     public static void main(String[] args) {
         try {
@@ -71,3 +74,5 @@ public class App {
 
     }
 }
+
+
