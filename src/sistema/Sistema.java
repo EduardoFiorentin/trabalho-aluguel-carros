@@ -130,6 +130,7 @@ public class Sistema implements ISistema{
     }
 
     public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) throws ClienteNaoEncontradoException {
+        
         // verificar se cliente existe 
         Pessoa cliente = getArmazenamentoCadastrados().pesquisar(idCLiente); 
         if (cliente == null) throw new ClienteNaoEncontradoException("CLiente com ID: "+idCLiente+" não existe!");
@@ -143,6 +144,15 @@ public class Sistema implements ISistema{
         }
 
         return alugueisAtivos;
+    }
+
+    // controle de login 
+    public void entrar(String usuario, String senha) {
+
+    }
+
+    public void sair() {
+
     }
 
 }
