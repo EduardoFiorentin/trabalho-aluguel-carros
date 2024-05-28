@@ -17,6 +17,8 @@ public class Sistema implements ISistema{
     private Armazenamento<Veiculo> veiculos = new Armazenamento<>();
     private Armazenamento<Aluguel> alugueisAtivos = new Armazenamento<>();
 
+    private Funcionario funcionario = null; 
+
     public Sistema() {
 
         // adicionar funcionarios         
@@ -38,9 +40,11 @@ public class Sistema implements ISistema{
 
     // public List<Veiculo> getVeiculos() { return this.veiculos; }
     public List<Aluguel> getAlugueisAtivos() { return alugueisAtivos.pesquisar(); }
-
     public Armazenamento<Aluguel> getArmazenamentoAlugueis() { return alugueisAtivos; }
     public Armazenamento<Pessoa> getArmazenamentoCadastrados() {return cadastrados; }
+
+    public Funcionario getFuncionario() { return funcionario; }
+    public void setFuncionario(Funcionario funcionario) { this.funcionario = funcionario; }
     
 
     public void listarFuncionarios() {
@@ -121,7 +125,9 @@ public class Sistema implements ISistema{
         throw new AluguelNaoEncontradoException("Aluguel não encontrado!");
     }
 
+    // trocar para ids 
     public boolean alugarVeiculo(Cliente cliente, Veiculo veiculo, int dias, Funcionario funcionarioResponsavel) {
+
         Aluguel aluguel = new Aluguel(UniqueIDGenerator.generateUniqueID(), veiculo, cliente, funcionarioResponsavel, dias);
         alugueisAtivos.adicionar(aluguel);
 
@@ -151,7 +157,7 @@ public class Sistema implements ISistema{
     }
 
     public void sair() {
-
+        setFuncionario(null);
     }
 
 }

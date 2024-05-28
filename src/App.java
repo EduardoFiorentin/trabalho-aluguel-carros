@@ -1,7 +1,9 @@
 import exceptions.AluguelNaoEncontradoException;
 import exceptions.ClienteNaoEncontradoException;
+import interfaces.Interface;
 import sistema.ISistema;
 import sistema.Sistema;
+import interfaces.Interface;
 
 // Adição automática
     // funcionários 
@@ -39,13 +41,53 @@ import sistema.Sistema;
 public class App {
     public static void main(String[] args) {
         try {
+
+            
+            
             System.out.println("\033[H\033[2J"); // limpar terminal antes de começar
             ISistema sistema = new Sistema(); 
+            
+            Interface.cabecalhoDoSistema(); 
+            Interface.mensagemLogin(); 
+            // login no sistema
+            
+            // flags
+            boolean rodando = true; 
+            char opcaoUsuario = '\0'; 
+            // cadastrar cliente 
+
+            while (rodando) {
+                // apagar cliente 
+    
+
+                // Funções do sistema 
+        
+                // listar clientes
+        
+        
+                // listar funcionários 
+        
+        
+                // listar veículos 
+        
+        
+                // alugar veículo 
+        
+        
+                // finalizar aluguel de veículo 
+    
+        
+                // sair do sistema 
+
+            }
+
+
             // sistema.listarFuncionarios();
             // sistema.listarClientes();
             // sistema.listarAlugueisAtivos();
             // sistema.listarFuncionarios();
     
+
             sistema.listarAlugueisAtivos();
             // sistema.removerCliente("2");
             // sistema.listarAlugueisAtivos();
@@ -53,7 +95,6 @@ public class App {
             System.out.println(sistema.getArmazenamentoCadastrados().pesquisar("00000000201").getInfo());
             
             sistema.listarAlugueisAtivos();
-            
             // sistema.listarClientes();
         } 
 
