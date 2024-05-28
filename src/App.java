@@ -22,17 +22,7 @@ import sistema.Sistema;
     // finalizar aluguel de veículo 
     
 
-// Excessões 
-    // faltam informações (cadastros)
-    // cliente não encontrado
-    // funcionário não encontrado 
-    // veículo não encontrado 
-    // item não encontrado (metodos de pesquisa)
-    // veículo não disponível
-    // aluguel já finalizado 
-    
 
-// ddddddddddddddddddddddddddddddddddddddddddddddddddd
 
 // sistema de login 
 // seleção automatica do funcionário na criação de Aluguel 
