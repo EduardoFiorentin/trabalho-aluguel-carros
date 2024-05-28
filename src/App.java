@@ -53,12 +53,8 @@ public class App {
             System.out.println(ex.getMessage());
             // os.getDir("c:/").remove()
         }
-        catch (AluguelNaoEncontradoException ex) {
-            System.out.println(ex.getMessage());
-        }
-        catch (ClienteNaoEncontradoException ex) {
-            System.out.println(ex.getMessage());
-        }
+
+        
 
         finally {
             // finalizar sistema 
