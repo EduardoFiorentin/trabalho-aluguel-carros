@@ -17,17 +17,17 @@ public class Sistema implements ISistema{
     private Armazenamento<Veiculo> veiculos = new Armazenamento<>();
     private Armazenamento<Aluguel> alugueisAtivos = new Armazenamento<>();
 
-    private Funcionario funcionario = null; 
+    private Pessoa funcionario = null; 
 
     public Sistema() {
 
         // adicionar funcionarios         
         cadastrados.adicionar(
-            new Funcionario("0", "Eduardo", "000.000.000-00", "Rua S, 22", "00 90000-0000", "Supervisor", 10500.0)
+            new Funcionario("0", "Eduardo", "000.000.000-00", "Rua S, 22", "00 90000-0000", "Vendedor", 10500.0, "eduardo123")
         ); 
 
         cadastrados.adicionar(
-            new Funcionario("1", "Mario", "000.000.000-01", "Rua D, 12", "00 60000-0000", "Estagiario", 500.0)
+            new Funcionario("1", "Mario", "000.000.000-01", "Rua D, 12", "00 60000-0000", "Vendedor", 500.0, "mario123")
         ); 
 
         cadastrarCliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null);
@@ -43,8 +43,8 @@ public class Sistema implements ISistema{
     public Armazenamento<Aluguel> getArmazenamentoAlugueis() { return alugueisAtivos; }
     public Armazenamento<Pessoa> getArmazenamentoCadastrados() {return cadastrados; }
 
-    public Funcionario getFuncionario() { return funcionario; }
-    public void setFuncionario(Funcionario funcionario) { this.funcionario = funcionario; }
+    public Pessoa getFuncionario() { return funcionario; }
+    public void setFuncionario(Pessoa funcionario) { this.funcionario = funcionario; }
     
 
     public void listarFuncionarios() {
@@ -91,8 +91,8 @@ public class Sistema implements ISistema{
         return cadastrados.remover(id); 
     }
 
-    public boolean cadastrarFuncionario(String id, String nome, String cpf, String endereco, String telefone, String cargo, double salario) {
-        Funcionario novoFuncionario = new Funcionario(id, nome, cpf, endereco, telefone, cargo, salario); 
+    public boolean cadastrarFuncionario(String id, String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha) {
+        Funcionario novoFuncionario = new Funcionario(id, nome, cpf, endereco, telefone, cargo, salario, senha); 
         cadastrados.adicionar(novoFuncionario);
         return true; 
     }
@@ -152,8 +152,15 @@ public class Sistema implements ISistema{
     }
 
     // controle de login 
-    public void entrar(String usuario, String senha) {
+    public void entrar(String id, String senha) throws UsuarioNaoEncontrado {
+        Pessoa logUsuario = cadastrados.pesquisar(id);
+        // System.out.println("Log: "+logUsuario.getNome());
 
+        if (logUsuario == null || !(logUsuario instanceof Funcionario)) throw new UsuarioNaoEncontrado("Usuário não existe!"); 
+        // if ((Funcionario)logUsuario)
+        if (!((Funcionario)logUsuario).verificarSenha(senha)) throw new UsuarioNaoEncontrado("Senha incorreta!");
+
+        setFuncionario(logUsuario);
     }
 
     public void sair() {

@@ -4,6 +4,7 @@ import java.util.List;
 import aluguel.Aluguel;
 import exceptions.AluguelNaoEncontradoException;
 import exceptions.ClienteNaoEncontradoException;
+import exceptions.UsuarioNaoEncontrado;
 import pessoas.Cliente;
 import pessoas.Funcionario;
 import pessoas.Pessoa;
@@ -20,7 +21,7 @@ public interface ISistema {
     // metodos de gestão de cadastros
     public boolean cadastrarCliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh);
     public boolean removerCliente(String id);
-    public boolean cadastrarFuncionario(String id, String nome, String cpf, String endereco, String telefone, String cargo, double salario);
+    public boolean cadastrarFuncionario(String id, String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha);
 
 
     // metodos de gestao de alugueis 
@@ -28,6 +29,6 @@ public interface ISistema {
     public void finalizarAluguel(String idCliente, String idVeiculo) throws AluguelNaoEncontradoException, ClienteNaoEncontradoException;
     public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) throws ClienteNaoEncontradoException; 
 
-    public void entrar(String usuario, String senha);
+    public void entrar(String id, String senha) throws UsuarioNaoEncontrado;
     public void sair();
 }
