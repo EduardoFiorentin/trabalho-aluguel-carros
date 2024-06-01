@@ -9,6 +9,7 @@ public abstract class Pessoa implements Identificavel{
     private String telefone;
 
     public Pessoa(String id, String nome, String cpf, String endereco, String telefone) {
+        // id ==> cpf
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;

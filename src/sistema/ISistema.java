@@ -21,7 +21,7 @@ public interface ISistema {
     // metodos de gestão de cadastros
     public boolean cadastrarCliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh);
     public boolean removerCliente(String id);
-    public boolean cadastrarFuncionario(String id, String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha);
+    public boolean cadastrarFuncionario(String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha);
 
 
     // metodos de gestao de alugueis 

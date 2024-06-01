@@ -149,13 +149,13 @@ public class App {
             // sistema.listarFuncionarios();
     
 
-            sistema.listarAlugueisAtivos();
+            // sistema.listarAlugueisAtivos();
             // sistema.removerCliente("2");
             // sistema.listarAlugueisAtivos();
-            sistema.finalizarAluguel("00000000201", "1");
-            System.out.println(sistema.getArmazenamentoCadastrados().pesquisar("00000000201").getInfo());
+            // sistema.finalizarAluguel("00000000201", "1");
+            // System.out.println(sistema.getArmazenamentoCadastrados().pesquisar("00000000201").getInfo());
             
-            sistema.listarAlugueisAtivos();
+            // sistema.listarAlugueisAtivos();
             // sistema.listarClientes();
         } 
 
@@ -165,14 +165,14 @@ public class App {
             Interface.mensagemDeErro("Ocorreu um erro inesperado!");
             // os.getDir("c:/").remove()
         }
-        catch (AluguelNaoEncontradoException ex) {
-            System.out.println(ex.getMessage());
-            Interface.mensagemDeErro("Ocorreu um erro inesperado!");
-        }
-        catch (ClienteNaoEncontradoException ex) {
-            System.out.println(ex.getMessage());
-            Interface.mensagemDeErro("Ocorreu um erro inesperado!");
-        }
+        // catch (AluguelNaoEncontradoException ex) {
+        //     System.out.println(ex.getMessage());
+        //     Interface.mensagemDeErro("Ocorreu um erro inesperado!");
+        // }
+        // catch (ClienteNaoEncontradoException ex) {
+        //     System.out.println(ex.getMessage());
+        //     Interface.mensagemDeErro("Ocorreu um erro inesperado!");
+        // }
         
         finally {
             // finalizar sistema 
@@ -184,6 +184,5 @@ public class App {
 
     }
 }
-
 
 

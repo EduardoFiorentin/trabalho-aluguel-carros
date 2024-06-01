@@ -5,8 +5,8 @@ public class Funcionario extends Pessoa {
     private double salario;
     private String senha; 
 
-    public Funcionario(String id, String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha) {
-        super(id, nome, cpf, endereco, telefone);
+    public Funcionario(String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha) {
+        super(cpf.replace(".", "").replace("-", ""), nome, cpf, endereco, telefone);
         setCargo(cargo);
         setSalario(salario);
         setSenha(senha);

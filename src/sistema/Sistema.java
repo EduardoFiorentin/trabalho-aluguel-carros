@@ -23,11 +23,11 @@ public class Sistema implements ISistema{
 
         // adicionar funcionarios         
         cadastrados.adicionar(
-            new Funcionario("0", "Eduardo", "000.000.000-00", "Rua S, 22", "00 90000-0000", "Vendedor", 10500.0, "eduardo123")
+            new Funcionario( "Eduardo", "000.000.000-00", "Rua S, 22", "00 90000-0000", "Vendedor", 10500.0, "eduardo123")
         ); 
 
         cadastrados.adicionar(
-            new Funcionario("1", "Mario", "000.000.000-01", "Rua D, 12", "00 60000-0000", "Vendedor", 500.0, "mario123")
+            new Funcionario("Mario", "000.000.000-01", "Rua D, 12", "00 60000-0000", "Vendedor", 500.0, "mario123")
         ); 
 
         cadastrarCliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null);
@@ -91,8 +91,8 @@ public class Sistema implements ISistema{
         return cadastrados.remover(id); 
     }
 
-    public boolean cadastrarFuncionario(String id, String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha) {
-        Funcionario novoFuncionario = new Funcionario(id, nome, cpf, endereco, telefone, cargo, salario, senha); 
+    public boolean cadastrarFuncionario(String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha) {
+        Funcionario novoFuncionario = new Funcionario(nome, cpf, endereco, telefone, cargo, salario, senha); 
         cadastrados.adicionar(novoFuncionario);
         return true; 
     }
