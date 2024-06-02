@@ -33,7 +33,7 @@ public class Sistema implements ISistema{
         cadastrarCliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null);
 
         veiculos.adicionar(new Veiculo("1", "UN-43", "azn0023", 30.0, 0, 2, "Uno", "GMB", "2000", "Laranja", 15000));
-        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("1"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("1"), (10))); 
+        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("1"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("00000000000"), 10)); 
 
         // cadastrados.pesquisar("00000000201").get(0).nome = "Genesio";
     }
@@ -98,11 +98,14 @@ public class Sistema implements ISistema{
     }
 
 
-    public void listarAlugueisAtivos() {
-        System.out.println("Alugueis:");
+    public List<String> listarAlugueisAtivos() {
+        // System.out.println("Alugueis:");
+        ArrayList<String> alugueis = new ArrayList<>();
+
         for (Aluguel aluguel : getAlugueisAtivos()) {
-            System.out.println(aluguel.getInfo());
+            if (aluguel.getAtivo()) alugueis.add(aluguel.getInfo());
         }; 
+        return alugueis; 
     }; 
 
     // metodos gerenciamento de aluguel 

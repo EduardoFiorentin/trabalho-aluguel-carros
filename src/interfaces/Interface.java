@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Interface {
     public static void limparTela() {
@@ -43,8 +44,12 @@ public class Interface {
             Interface.mensagemDeErro(exe.getMessage());
         }
     }
+    public static void pararSistema(Scanner scannerPause)  {
+        Interface.mensagem("\nPressione ENTER para continuar...");
+        scannerPause.nextLine(); 
+    }
     public static void mensagem(String mensagem) {
-        System.out.println(mensagem+"\n");
+        System.out.println(mensagem);
     }
 
     public static void mensagemInput(String mensagem) {
@@ -52,11 +57,11 @@ public class Interface {
     }
 
     public static void mensagemSucesso(String mensagem) {
-        System.out.println(mensagem+"\n");
+        System.out.println(mensagem);
     }
 
     public static void mensagemDeErro(String mensagem) {
-        System.out.println(mensagem + "\n");
+        System.out.println(mensagem);
     }
 
 

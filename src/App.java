@@ -8,6 +8,7 @@ import interfaces.Interface;
 
 import java.io.EOFException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner; 
 
 // Adição automática
@@ -39,6 +40,8 @@ import java.util.Scanner;
     // aluguel já finalizado 
     
 
+// correções 
+    // Aluguel - verificar se veículo, funcionário e cliente existem antes de criar um aluguel 
 
 // sistema de login 
 // seleção automatica do funcionário na criação de Aluguel 
@@ -61,8 +64,6 @@ public class App {
             
             Boolean login = false;
             
-            String usuario; 
-            String senha; 
             
             // login no sistema 
             while (!login) {
@@ -71,13 +72,13 @@ public class App {
                     Interface.cabecalhoLogin(); 
 
                     Interface.mensagemInput("Digite seu usuário: ");
-                    usuario = scannerString.nextLine().trim();
+                    String usuario = scannerString.nextLine().trim();
 
                     Interface.limparTela();
                     Interface.cabecalhoLogin();
 
                     Interface.mensagemInput("Digite sua senha: ");
-                    senha = scannerString.nextLine().trim(); 
+                    String senha = scannerString.nextLine().trim(); 
 
                     sistema.entrar(usuario, senha);
                     break; 
@@ -115,6 +116,118 @@ public class App {
                         rodando = false;
                         break;
                     
+                    case '1':
+                        Interface.limparTela();
+                        Interface.cabecalhoDoSistema();
+                        Interface.mensagem("Lista de clientes: ");
+
+                        sistema.listarClientes();  
+
+                        Interface.pararSistema(scannerPause);
+                        break; 
+
+                    case '2':
+                        try {
+                            Interface.limparTela();
+                            Interface.cabecalhoDoSistema();
+                            
+                            Interface.mensagem("Lista de alugueis ativos: ");
+                            List<String> alugueis = sistema.listarAlugueisAtivos();
+
+                            if (alugueis.size() == 0) {
+                                Interface.mensagem("Não há alugueis ativos no momento.");
+                                Interface.pararSistema(scannerPause);
+                                break; 
+                            }
+                            for (String aluguel : alugueis) {
+                                Interface.mensagem("\t#"+aluguel);
+                            }
+
+                            Interface.pararSistema(scannerPause);
+
+                        } catch (RuntimeException ex) {
+                            Interface.mensagemDeErro("Um erro inesperado ocorreu! Contate o suporte técnico : " + ex.getMessage());
+                        }
+                        break; 
+
+                    case '3':
+                        // trocar parâmetros 
+                        break;
+
+                    case '4':
+                        try {
+                            Interface.mensagem("Cpf do cliente: ");
+                            String idCliente = scannerString.nextLine();
+
+                            Interface.mensagem("Id do veículo: ");
+                            String idVeiculo = scannerString.nextLine(); 
+                            
+                            sistema.finalizarAluguel(idCliente, idVeiculo);
+                            Interface.mensagem("Aluguel finalizado!");
+                            Interface.pausarSistema();
+                        } 
+
+                        catch(AluguelNaoEncontradoException ex) {
+                            Interface.mensagemDeErro(ex.getMessage());
+                            Interface.pausarSistema();
+                        }
+                        catch(ClienteNaoEncontradoException ex) {
+                            Interface.mensagemDeErro(ex.getMessage());
+                            Interface.pausarSistema();
+                        }
+                        
+                        break;  
+
+                    case '5':
+                        Interface.mensagem("Lista de funcionários: ");
+                        sistema.listarFuncionarios();
+                        break;
+
+                    case '6':
+                        boolean cadastro = true; 
+                        while (cadastro) {
+                            try {
+                                Interface.limparTela();
+                                Interface.cabecalhoDoSistema();
+                                Interface.mensagem("Cadastro de cliente: ");
+                                
+                                Interface.mensagem("Nome: ");
+                                String nome = scannerString.nextLine();
+                                
+                                
+                                Interface.mensagem("CPF: ");
+                                String cpf = scannerString.nextLine();
+                                
+                                
+                                Interface.mensagem("Data de nascimento: ");
+                                String dataNascimento = scannerString.nextLine();
+                                
+                                
+                                Interface.mensagem("endereço: ");
+                                String endereco = scannerString.nextLine();
+                                
+                                
+                                Interface.mensagem("Telefone");
+                                String telefone = scannerString.nextLine();
+                                
+                                
+                                Interface.mensagem("Email");
+                                String email = scannerString.nextLine();
+                                
+                                
+                                Interface.mensagem("CNH");
+                                String cnh = scannerString.nextLine();
+                                
+                                cadastro = !sistema.cadastrarCliente(nome, cpf, dataNascimento, endereco, telefone, email, cnh);
+
+                            } catch (RuntimeException ex) {
+                                Interface.mensagemDeErro("Operação inválida! Tente novamente.");
+                            }
+
+                        }
+
+                        break; 
+
                     default:
                         Interface.mensagemDeErro("Opção inválida!");
                         break;
@@ -141,6 +254,15 @@ public class App {
                 // sair do sistema 
 
             }
+
+            // System.out.println("Opções do sistema: ");
+            // System.out.println("[0] - Sair");
+            // System.out.println("[1] - Listar Clientes");
+            // System.out.println("[2] - Listar Alugueis");
+            // System.out.println("[3] - Novo Aluguel");
+            // System.out.println("[4] - Finalizar Aluguel");
+            // System.out.println("[5] - Listar Funcionários");
+            // System.out.println("[6] - Cadastrar Cliente");
 
 
             // sistema.listarFuncionarios();
@@ -180,6 +302,7 @@ public class App {
             scannerInt.close();
             scannerString.close();
             scannerChar.close();
+            scannerPause.close();
         }
 
     }

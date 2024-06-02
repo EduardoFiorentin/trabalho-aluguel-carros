@@ -15,7 +15,7 @@ import veiculo.Veiculo;
 public interface ISistema {
     public void listarFuncionarios();
     public void listarClientes();
-    public void listarAlugueisAtivos(); 
+    public List<String> listarAlugueisAtivos(); 
     public Armazenamento<Pessoa> getArmazenamentoCadastrados();
 
     // metodos de gestão de cadastros
