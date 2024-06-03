@@ -15,14 +15,17 @@ package exceptions;
     * problema encontrado.
 */
 /**
- * Exceção lançada quando uma operação é realizada em um aluguel que já foi finalizado.
+ * Exceção lançada quando uma operação é realizada em um aluguel que já foi
+ * finalizado.
  */
 public class AluguelJaFinalizadoException extends Exception {
-/**
- * Construtor para criar uma nova AluguelJaFinalizadoException com uma mensagem detalhada.
- * @param message a mensagem detalhada da exceção
-*/   
+    /**
+     * Construtor para criar uma nova AluguelJaFinalizadoException com uma mensagem
+     * detalhada.
+     * 
+     * @param message a mensagem detalhada da exceção
+     */
     public AluguelJaFinalizadoException(String message) {
-        super(message); 
+        super(message);
     }
 }
