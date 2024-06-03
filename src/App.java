@@ -22,15 +22,6 @@ import sistema.Sistema;
     // finalizar aluguel de veículo 
     
 
-// Excessões 
-    // faltam informações (cadastros)
-    // cliente não encontrado
-    // funcionário não encontrado 
-    // veículo não encontrado 
-    // item não encontrado (metodos de pesquisa)
-    // veículo não disponível
-    // aluguel já finalizado 
-    
 
 
 // sistema de login 
@@ -62,12 +53,8 @@ public class App {
             System.out.println(ex.getMessage());
             // os.getDir("c:/").remove()
         }
-        catch (AluguelNaoEncontradoException ex) {
-            System.out.println(ex.getMessage());
-        }
-        catch (ClienteNaoEncontradoException ex) {
-            System.out.println(ex.getMessage());
-        }
+
+        
 
         finally {
             // finalizar sistema 
