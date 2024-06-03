@@ -61,7 +61,6 @@ public class Sistema implements ISistema{
     }
         
     public void listarClientes() {
-        System.out.println("Lista de Clientes:");
         List<Pessoa> pessoas = cadastrados.pesquisar(); 
         Cliente cliente; 
 

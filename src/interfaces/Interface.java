@@ -5,14 +5,14 @@ import java.util.Scanner;
 
 public class Interface {
     public static void limparTela() {
-        // System.out.println("\033[H\033[2J"); // limpar terminal antes de começar
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            }
-        } catch (IOException | InterruptedException ex) {
-            ex.printStackTrace();
-        }
+        System.out.println("\033[H\033[2J"); // limpar terminal antes de começar
+        // try {
+        //     if (System.getProperty("os.name").contains("Windows")) {
+        //         new ProcessBuilder("cmd", "/c", "clear").inheritIO().start().waitFor();
+        //     }
+        // } catch (IOException | InterruptedException ex) {
+        //     ex.printStackTrace();
+        // }
     }
 
     public static void cabecalhoDoSistema() {
