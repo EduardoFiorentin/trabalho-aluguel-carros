@@ -16,7 +16,6 @@ public class Sistema implements ISistema{
     private Armazenamento<Pessoa> cadastrados = new Armazenamento<>(); 
     private Armazenamento<Veiculo> veiculos = new Armazenamento<>();
     private Armazenamento<Aluguel> alugueisAtivos = new Armazenamento<>();
-
     private Pessoa funcionario = null; 
 
     public Sistema() {
@@ -49,30 +48,32 @@ public class Sistema implements ISistema{
     public void setFuncionario(Pessoa funcionario) { this.funcionario = funcionario; }
     
 
-    public void listarFuncionarios() {
-        System.out.println("Lista de Funcionários:");
+    public List<String> listarFuncionarios() {
         List<Pessoa> pessoas = cadastrados.pesquisar(); 
         Funcionario funcionario; 
+        List<String> infoFuncionarios = new ArrayList(); 
 
         for (Pessoa pessoa : pessoas) {
             if (pessoa instanceof Funcionario) {
                 funcionario = (Funcionario)pessoa; 
-                System.out.printf("\t# %s - %s - %s\n", funcionario.getId(), funcionario.getNome(), funcionario.getCargo());   
+                infoFuncionarios.add(funcionario.getInfo());   
             }
         }
+        return infoFuncionarios; 
     }
         
-    public void listarClientes() {
+    public List<String> listarClientes() {
         List<Pessoa> pessoas = cadastrados.pesquisar(); 
         Cliente cliente; 
+        List<String> infoClientes = new ArrayList(); 
 
         for (Pessoa pessoa : pessoas) {
             if (pessoa instanceof Cliente) {
                 cliente = (Cliente) pessoa; 
-                System.out.printf("\t# %s - %s - %s\n", cliente.getId(), cliente.getNome(), cliente.getCpf());   
+                infoClientes.add(cliente.getInfo());
             }
         }
-        
+        return infoClientes; 
     }
         
     public List<String> listarVeiculos()  {

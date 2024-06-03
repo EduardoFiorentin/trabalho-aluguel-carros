@@ -18,8 +18,8 @@ public class Funcionario extends Pessoa {
     public double getSalario() { return salario; }
     private String getSenha() { return senha; }
 
-    public void setCargo(String cargo) { this.cargo = cargo; }
-    public void setSalario(double salario) { this.salario = salario; }
+    private void setCargo(String cargo) { this.cargo = cargo; }
+    private void setSalario(double salario) { this.salario = salario; }
     private void setSenha(String senha) { this.senha = senha; }
 
     public boolean verificarSenha(String senha) {
@@ -28,6 +28,6 @@ public class Funcionario extends Pessoa {
 
     @Override
     public String getInfo() {
-        return String.format("Informações de funcionário: \n\tId: %s\n\tNome: %s\n\tCargo: %s", getId(), getNome(), getCargo());
+        return String.format("%s - %s - %s", getId(), getNome(), getCargo());
     }
 }

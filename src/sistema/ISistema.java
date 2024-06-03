@@ -16,8 +16,8 @@ import veiculo.Veiculo;
 //Só tem o nome da função para ser escrita depopis (Contrato)
 
 public interface ISistema {
-    public void listarFuncionarios();
-    public void listarClientes();
+    public List<String> listarFuncionarios();
+    public List<String> listarClientes();
     public List<String> listarAlugueisAtivos(); 
     public List<String> listarVeiculos(); 
     public Armazenamento<Pessoa> getArmazenamentoCadastrados();

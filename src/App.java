@@ -125,7 +125,11 @@ public class App {
                         Interface.cabecalhoDoSistema();
                         Interface.mensagem("Lista de clientes: ");
 
-                        sistema.listarClientes();  
+                        List<String> infoClientes = sistema.listarClientes();  
+
+                        for (String info: infoClientes) {
+                            Interface.mensagem("\t# "+info);
+                        }
 
                         Interface.pararSistema(scannerPause);
                         break; 
@@ -153,6 +157,7 @@ public class App {
                             Interface.mensagemDeErro("Um erro inesperado ocorreu! Contate o suporte técnico : " + ex.getMessage());
                         }
                         break; 
+
                     case '3':
                         Interface.limparTela();
                         Interface.cabecalhoDoSistema();
@@ -248,9 +253,18 @@ public class App {
                         break;  
 
                     case '6':
-                        Interface.mensagem("Lista de funcionários: ");
-                        sistema.listarFuncionarios();
-                        break;
+                        Interface.limparTela();
+                        Interface.cabecalhoDoSistema();
+                        Interface.mensagem("Lista de Funcionarios: ");
+
+                        List<String> infoFuncionarios = sistema.listarFuncionarios();  
+
+                        for (String info: infoFuncionarios) {
+                            Interface.mensagem("\t# "+info);
+                        }
+
+                        Interface.pararSistema(scannerPause);
+                        break; 
 
                     case '7':
                         boolean cadastro = true; 
