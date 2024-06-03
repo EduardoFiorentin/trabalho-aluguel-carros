@@ -111,7 +111,6 @@ public class Sistema implements ISistema{
 
 
     public List<String> listarAlugueisAtivos() {
-        // System.out.println("Alugueis:");
         ArrayList<String> alugueis = new ArrayList<>();
 
         for (Aluguel aluguel : getAlugueisAtivos()) {
@@ -140,7 +139,6 @@ public class Sistema implements ISistema{
         throw new AluguelNaoEncontradoException("Aluguel não encontrado!");
     }
 
-    // trocar para ids 
     public boolean alugarVeiculo(String idCliente, String idVeiculo, int dias) throws ClienteNaoEncontradoException, VeiculoNaoDisponivelException, VeiculoNaoEncontradoException, FuncionarioNaoEncontradoException {
         
         Cliente cliente = (Cliente) cadastrados.pesquisar(idCliente); 
@@ -173,7 +171,6 @@ public class Sistema implements ISistema{
         return alugueisAtivos;
     }
 
-    // controle de login 
     public void entrar(String id, String senha) throws UsuarioNaoEncontrado {
         Pessoa logUsuario = cadastrados.pesquisar(id);
         // System.out.println("Log: "+logUsuario.getNome());
@@ -185,6 +182,7 @@ public class Sistema implements ISistema{
         setFuncionario(logUsuario);
     }
 
+    
     public void sair() {
         setFuncionario(null);
     }

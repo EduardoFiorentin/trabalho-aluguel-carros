@@ -58,16 +58,19 @@ public class App {
         Scanner scannerString = new Scanner(System.in); 
         Scanner scannerChar = new Scanner(System.in); 
         Scanner scannerPause = new Scanner(System.in); 
-
         char opcaoUsuario = '\0'; 
+        Boolean login = false;
+        
+        ISistema sistema = new Sistema(); 
 
+        
+        
+        // cadastrar cliente 
+        
+        // fazer sistema de log out 
+        
         try {
             Interface.limparTela();
-            ISistema sistema = new Sistema(); 
-            
-            
-            Boolean login = false;
-            
             
             // login no sistema 
             while (!login) {
@@ -103,10 +106,6 @@ public class App {
             Interface.cabecalhoDoSistema();
             Interface.mensagemSucesso("Login efetuado com sucesso!");
             Interface.pausarSistema();
-
-
-            // cadastrar cliente 
-
             while (rodando) {
 
                 Interface.limparTela();
