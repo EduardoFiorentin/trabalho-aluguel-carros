@@ -23,7 +23,7 @@ public class Sistema implements ISistema{
 
         // adicionar funcionarios         
         cadastrados.adicionar(
-            new Funcionario( "Eduardo", "000.000.000-00", "Rua S, 22", "00 90000-0000", "Vendedor", 10500.0, "eduardo123")
+            new Funcionario( "Eduardo", "000.000.000-00", "Rua S, 22", "00 90000-0000", "Vendedor", 10500.0, "12345")
         ); 
 
         cadastrados.adicionar(
@@ -32,7 +32,9 @@ public class Sistema implements ISistema{
 
         cadastrarCliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null);
 
-        veiculos.adicionar(new Veiculo("1", "UN-43", "azn0023", 30.0, 0, 2, "Uno", "GMB", "2000", "Laranja", 15000));
+        veiculos.adicionar(new Veiculo("1", "UN-43", "azn0023", 30.0, 1, 2, "Uno", "GMB", "2000", "Laranja", 15000));
+        veiculos.adicionar(new Veiculo("2", "", "atx0283", 30.0, 1, 2, "Celta", "PPL", "2010", "Preto", 30000));
+        veiculos.adicionar(new Veiculo("3", "", "azd0350", 30.0, 1, 2, "Marea", "PPL", "1990", "Preto", 150000));
         alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("1"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("00000000000"), 10)); 
 
         // cadastrados.pesquisar("00000000201").get(0).nome = "Genesio";
@@ -73,6 +75,16 @@ public class Sistema implements ISistema{
         
     }
         
+    public List<String> listarVeiculos()  {
+        List<String> infoVeiculos = new ArrayList<>();
+
+        for (Veiculo veiculo : veiculos.pesquisar()) {
+            infoVeiculos.add(veiculo.getInfo()); 
+        }
+
+        return infoVeiculos; 
+    }
+
     // CRUD Aluguel 
     
     // Método para finalizar um aluguel
@@ -128,9 +140,16 @@ public class Sistema implements ISistema{
     }
 
     // trocar para ids 
-    public boolean alugarVeiculo(Cliente cliente, Veiculo veiculo, int dias, Funcionario funcionarioResponsavel) {
+    public boolean alugarVeiculo(String idCliente, String idVeiculo, int dias) throws ClienteNaoEncontradoException, VeiculoNaoDisponivelException, VeiculoNaoEncontradoException, FuncionarioNaoEncontradoException {
+        
+        Cliente cliente = (Cliente) cadastrados.pesquisar(idCliente); 
+        if ( cliente == null ) throw new ClienteNaoEncontradoException("Cliente com ID: " + idCliente + " não encontrado!");
 
-        Aluguel aluguel = new Aluguel(UniqueIDGenerator.generateUniqueID(), veiculo, cliente, funcionarioResponsavel, dias);
+        Veiculo veiculo = veiculos.pesquisar(idVeiculo); 
+        if ( veiculo == null ) throw new VeiculoNaoEncontradoException("Veiculo com ID: " + idVeiculo + " não encontrado!");
+        if ( !veiculo.isDisponivel() ) throw new VeiculoNaoDisponivelException("Veículo com ID: "+idVeiculo+" não está disponível no momento!"); 
+        
+        Aluguel aluguel = new Aluguel(UniqueIDGenerator.generateUniqueID(), veiculo, cliente, (Funcionario) getFuncionario(), dias);
         alugueisAtivos.adicionar(aluguel);
 
         return true;

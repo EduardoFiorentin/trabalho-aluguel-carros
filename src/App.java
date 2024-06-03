@@ -1,6 +1,9 @@
 import exceptions.AluguelNaoEncontradoException;
 import exceptions.ClienteNaoEncontradoException;
+import exceptions.FuncionarioNaoEncontradoException;
 import exceptions.UsuarioNaoEncontrado;
+import exceptions.VeiculoNaoDisponivelException;
+import exceptions.VeiculoNaoEncontradoException;
 import interfaces.Interface;
 import sistema.ISistema;
 import sistema.Sistema;
@@ -8,6 +11,7 @@ import interfaces.Interface;
 
 import java.io.EOFException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner; 
 
@@ -149,12 +153,77 @@ public class App {
                             Interface.mensagemDeErro("Um erro inesperado ocorreu! Contate o suporte técnico : " + ex.getMessage());
                         }
                         break; 
-
                     case '3':
-                        // trocar parâmetros 
-                        break;
+                        Interface.limparTela();
+                        Interface.cabecalhoDoSistema();
+
+                        Interface.mensagem("Veiculos: ");
+                        List<String> informacoes = sistema.listarVeiculos(); 
+
+                        for (String informacao : informacoes) {
+                            Interface.mensagem("\t# "+informacao);
+                        }
+
+                        Interface.pararSistema(scannerPause);
+                        break; 
 
                     case '4':
+                        boolean aluguel = true;
+                        while (aluguel) {
+                            try {
+                                Interface.limparTela();
+                                Interface.cabecalhoDoSistema();
+    
+                                Interface.mensagem("Aluguel de veículo: [0 - sair]");
+                                Interface.mensagem("Cpf do cliente: ");
+                                String cpfCliente = scannerString.nextLine();
+                                if (cpfCliente.equals("0")) {
+                                    aluguel = false;
+                                    continue;
+                                } 
+
+                                Interface.mensagem("Id do veículo: [-1 - cancelar]");
+                                String idVeiculo = scannerString.nextLine();
+                                // if (idVeiculo == "-1") {
+                                //     aluguel = false;
+                                //     break;
+                                // } 
+
+                                Interface.mensagem("Aluguel válido por quantos dias: [-1 - cancelar]");
+                                int dias = scannerInt.nextInt(); 
+                                // if (dias == -1) {
+                                //     aluguel = false;
+                                //     break;
+                                // } 
+
+                                sistema.alugarVeiculo(cpfCliente, idVeiculo, dias);
+                                aluguel = false; 
+                            } 
+                            catch (RuntimeException ex) {
+                                Interface.mensagemDeErro("Um erro inesperado ocorreu! Contate o suporte técnico : " + ex.getMessage());
+                                Interface.pararSistema(scannerPause);
+                            }
+                            catch(ClienteNaoEncontradoException ex) {
+                                Interface.mensagemDeErro(ex.getMessage());
+                                Interface.pararSistema(scannerPause);
+                            }
+                            catch(FuncionarioNaoEncontradoException ex) {
+                                Interface.mensagemDeErro(ex.getMessage());
+                                Interface.pararSistema(scannerPause);
+                            }
+                            catch(VeiculoNaoDisponivelException ex) {
+                                Interface.mensagemDeErro(ex.getMessage());
+                                Interface.pararSistema(scannerPause);
+                            }
+                            catch(VeiculoNaoEncontradoException ex) {
+                                Interface.mensagemDeErro(ex.getMessage());
+                                Interface.pararSistema(scannerPause);
+                            }
+                        }
+                        
+                        break;
+
+                    case '5':
                         try {
                             Interface.mensagem("Cpf do cliente: ");
                             String idCliente = scannerString.nextLine();
@@ -178,12 +247,12 @@ public class App {
                         
                         break;  
 
-                    case '5':
+                    case '6':
                         Interface.mensagem("Lista de funcionários: ");
                         sistema.listarFuncionarios();
                         break;
 
-                    case '6':
+                    case '7':
                         boolean cadastro = true; 
                         while (cadastro) {
                             try {
@@ -193,7 +262,6 @@ public class App {
                                 
                                 Interface.mensagem("Nome: ");
                                 String nome = scannerString.nextLine();
-                                
                                 
                                 Interface.mensagem("CPF: ");
                                 String cpf = scannerString.nextLine();
@@ -282,11 +350,11 @@ public class App {
         } 
 
         /** Tratamento de excessões obrigatórias do sistema  */
-        catch (RuntimeException ex) {
-            System.out.println(ex.getMessage());
-            Interface.mensagemDeErro("Ocorreu um erro inesperado!");
-            // os.getDir("c:/").remove()
-        }
+        // catch (RuntimeException ex) {
+        //     System.out.println(ex.getMessage());
+        //     Interface.mensagemDeErro("Ocorreu um erro inesperado!");
+        //     // os.getDir("c:/").remove()
+        // }
         // catch (AluguelNaoEncontradoException ex) {
         //     System.out.println(ex.getMessage());
         //     Interface.mensagemDeErro("Ocorreu um erro inesperado!");
