@@ -3,7 +3,6 @@ import aluguel.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
 
 import pessoas.*;
 import utils.Armazenamento;
@@ -21,9 +20,15 @@ public class Sistema implements ISistema{
     private Armazenamento<Pessoa> cadastrados = new Armazenamento<>(); 
     private Armazenamento<Veiculo> veiculos = new Armazenamento<>();
     private Armazenamento<Aluguel> alugueisAtivos = new Armazenamento<>();
+<<<<<<< HEAD
     /**
      * Construtor padrão da classe Sistema.
      */
+=======
+
+    private Pessoa funcionario = null; 
+
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
     public Sistema() {
 
     /**
@@ -32,11 +37,11 @@ public class Sistema implements ISistema{
      * de aluguél o funcionário necessite apenas das informações do seu login e sua senha.
     */       
         cadastrados.adicionar(
-            new Funcionario("0", "Eduardo", "000.000.000-00", "Rua S, 22", "00 90000-0000", "Supervisor", 10500.0)
+            new Funcionario( "Eduardo", "000.000.000-00", "Rua S, 22", "00 90000-0000", "Vendedor", 10500.0, "eduardo123")
         ); 
 
         cadastrados.adicionar(
-            new Funcionario("1", "Mario", "000.000.000-01", "Rua D, 12", "00 60000-0000", "Estagiario", 500.0)
+            new Funcionario("Mario", "000.000.000-01", "Rua D, 12", "00 60000-0000", "Vendedor", 500.0, "mario123")
         ); 
     
     /**
@@ -47,10 +52,14 @@ public class Sistema implements ISistema{
      * Possibilita a adição de um veículo no sistema.
      */
         veiculos.adicionar(new Veiculo("1", "UN-43", "azn0023", 30.0, 0, 2, "Uno", "GMB", "2000", "Laranja", 15000));
+<<<<<<< HEAD
     /**
      * Adciona um aluguél ativo no sistema.
      */
         alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("1"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("1"), (10))); 
+=======
+        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("1"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("00000000000"), 10)); 
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
 
         // cadastrados.pesquisar("00000000201").get(0).nome = "Genesio";
     }
@@ -62,16 +71,22 @@ public class Sistema implements ISistema{
      * @return O armazenamento de aluguéis ativos.
      */
     public List<Aluguel> getAlugueisAtivos() { return alugueisAtivos.pesquisar(); }
+<<<<<<< HEAD
      /**
      * Obtém o armazenamento de aluguéis.
      * @return O armazenamento de aluguéis.
      */
+=======
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
     public Armazenamento<Aluguel> getArmazenamentoAlugueis() { return alugueisAtivos; }
      /**
      * Obtém o armazenamento de pessoas cadastradas.
      * @return O armazenamento de pessoas cadastradas.
      */
     public Armazenamento<Pessoa> getArmazenamentoCadastrados() {return cadastrados; }
+
+    public Pessoa getFuncionario() { return funcionario; }
+    public void setFuncionario(Pessoa funcionario) { this.funcionario = funcionario; }
     
     /* Métodos de listagem de informações*/
     /**
@@ -96,8 +111,11 @@ public class Sistema implements ISistema{
      * Lista todos os clientes cadastrados no sistema.
      */
     public void listarClientes() {
+<<<<<<< HEAD
         System.out.println("Lista de Clientes:");
         /* Obtém a lista de todas as pessoas cadastradas no sistema */
+=======
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
         List<Pessoa> pessoas = cadastrados.pesquisar(); 
         Cliente cliente; 
         /* Itera sobre cada pessoa na lista */
@@ -149,6 +167,7 @@ public class Sistema implements ISistema{
     public boolean removerCliente(String id) {
         return cadastrados.remover(id); 
     }
+<<<<<<< HEAD
 /**
  * Cadastra um novo funcionário no sistema.
  *
@@ -166,10 +185,16 @@ public class Sistema implements ISistema{
  */
     public boolean cadastrarFuncionario(String id, String nome, String cpf, String endereco, String telefone, String cargo, double salario) {
         Funcionario novoFuncionario = new Funcionario(id, nome, cpf, endereco, telefone, cargo, salario); 
+=======
+
+    public boolean cadastrarFuncionario(String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha) {
+        Funcionario novoFuncionario = new Funcionario(nome, cpf, endereco, telefone, cargo, salario, senha); 
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
         cadastrados.adicionar(novoFuncionario);
         return true; 
     }
 
+<<<<<<< HEAD
 /**
  * Lista todos os aluguéis ativos no sistema, exibindo suas informações.
  * Obtém a lista de todos os aluguéis ativos no sistema
@@ -177,9 +202,17 @@ public class Sistema implements ISistema{
  */
     public void listarAlugueisAtivos() {
         System.out.println("Alugueis:");
+=======
+
+    public List<String> listarAlugueisAtivos() {
+        // System.out.println("Alugueis:");
+        ArrayList<String> alugueis = new ArrayList<>();
+
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
         for (Aluguel aluguel : getAlugueisAtivos()) {
-            System.out.println(aluguel.getInfo());
+            if (aluguel.getAtivo()) alugueis.add(aluguel.getInfo());
         }; 
+        return alugueis; 
     }; 
 
     /*Metodos gerenciamento de aluguel*/ 
@@ -213,6 +246,7 @@ public class Sistema implements ISistema{
         throw new AluguelNaoEncontradoException("Aluguel não encontrado!");
     }
 
+<<<<<<< HEAD
 /**
  * Realiza o aluguel de um veículo para um cliente e adiciona o aluguel à lista de aluguéis ativos.
  * @param cliente Cliente que está alugando o veículo.
@@ -224,7 +258,11 @@ public class Sistema implements ISistema{
  * Cria um novo aluguel com informações fornecidas
  * Adiciona o aluguel à lista de aluguéis ativos
  */
+=======
+    // trocar para ids 
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
     public boolean alugarVeiculo(Cliente cliente, Veiculo veiculo, int dias, Funcionario funcionarioResponsavel) {
+
         Aluguel aluguel = new Aluguel(UniqueIDGenerator.generateUniqueID(), veiculo, cliente, funcionarioResponsavel, dias);
         alugueisAtivos.adicionar(aluguel);
 
@@ -257,6 +295,7 @@ public class Sistema implements ISistema{
     }
 
     // controle de login 
+<<<<<<< HEAD
 
     /**
      * Realiza a autenticação do usuário no sistema.
@@ -265,12 +304,27 @@ public class Sistema implements ISistema{
      */
     public void entrar(String usuario, String senha) {
         // Implementação da lógica de autenticação do usuário no sistema
+=======
+    public void entrar(String id, String senha) throws UsuarioNaoEncontrado {
+        Pessoa logUsuario = cadastrados.pesquisar(id);
+        // System.out.println("Log: "+logUsuario.getNome());
+
+        if (logUsuario == null || !(logUsuario instanceof Funcionario)) throw new UsuarioNaoEncontrado("Usuário não existe!"); 
+        // if ((Funcionario)logUsuario)
+        if (!((Funcionario)logUsuario).verificarSenha(senha)) throw new UsuarioNaoEncontrado("Senha incorreta!");
+
+        setFuncionario(logUsuario);
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
     }
 
     /**
      * Realiza a saída do usuário do sistema.
      */
     public void sair() {
+<<<<<<< HEAD
         // Implementação da lógica de saída do usuário do sistema
+=======
+        setFuncionario(null);
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
     }
 }

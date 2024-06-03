@@ -4,6 +4,7 @@ import java.util.List;
 import aluguel.Aluguel;
 import exceptions.AluguelNaoEncontradoException;
 import exceptions.ClienteNaoEncontradoException;
+import exceptions.UsuarioNaoEncontrado;
 import pessoas.Cliente;
 import pessoas.Funcionario;
 import pessoas.Pessoa;
@@ -22,6 +23,7 @@ public interface ISistema {
      * Lista todos os clientes cadastrados no sistema.
      */
     public void listarClientes();
+<<<<<<< HEAD
     /**
      * Lista todos os aluguéis ativos no sistema.
      */
@@ -30,6 +32,9 @@ public interface ISistema {
      * Obtém o armazenamento de pessoas cadastradas no sistema.
      * @return O armazenamento de pessoas cadastradas.
      */
+=======
+    public List<String> listarAlugueisAtivos(); 
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
     public Armazenamento<Pessoa> getArmazenamentoCadastrados();
 
     // metodos de gestão de cadastros
@@ -52,6 +57,7 @@ public interface ISistema {
      * @return True se a remoção for bem-sucedida, False caso contrário.
      */
     public boolean removerCliente(String id);
+<<<<<<< HEAD
     /**
      * Cadastra um novo funcionário no sistema.
      * @param id ID do funcionário.
@@ -64,6 +70,9 @@ public interface ISistema {
      * @return True se o cadastro for bem-sucedido, False caso contrário.
      */
     public boolean cadastrarFuncionario(String id, String nome, String cpf, String endereco, String telefone, String cargo, double salario);
+=======
+    public boolean cadastrarFuncionario(String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha);
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
 
 
     // metodos de gestao de alugueis 
@@ -91,6 +100,7 @@ public interface ISistema {
      * @throws ClienteNaoEncontradoException Exceção lançada se o cliente não for encontrado.
      */
     public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) throws ClienteNaoEncontradoException; 
+<<<<<<< HEAD
     /**
      * Permite que um usuário entre no sistema.
      * @param usuario Nome de usuário.
@@ -100,5 +110,9 @@ public interface ISistema {
     /**
      * Permite que um usuário saia do sistema.
      */
+=======
+
+    public void entrar(String id, String senha) throws UsuarioNaoEncontrado;
+>>>>>>> ec74ceb3e7769546a34aa2c94ad67c97af8dc5d1
     public void sair();
 }
