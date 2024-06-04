@@ -31,6 +31,7 @@ public class Veiculo implements Identificavel{
         setAno(ano);
         setCor(cor);
         setKmRodados(tipoCombustivel);
+        setDisponivel(true);
     }
 
 
@@ -46,6 +47,9 @@ public class Veiculo implements Identificavel{
     public int getKmRodados() { return kmRodados; }
     public double getPrecoDiaria() { return precoDiaria; }
     public String getTipoCombustivel() { return tipoCombustivel; }
+    public String getInfo() {
+        return String.format("ID: %s\t%s\t%s - %s %s\tDiaria: %f", getId(), isDisponivel() ? "Disponivel" : "Indisponível", getModelo(), getMarca(), getCategoria(), getPrecoDiaria()); 
+    }
 
     private void setId(String id) { this.id = id; }
     private void setPlaca(String placa) { this.placa = placa; }

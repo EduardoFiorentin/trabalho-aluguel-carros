@@ -32,10 +32,11 @@ public class Interface {
         System.out.println("[0] - Sair");
         System.out.println("[1] - Listar Clientes");
         System.out.println("[2] - Listar Alugueis");
-        System.out.println("[3] - Novo Aluguel");
-        System.out.println("[4] - Finalizar Aluguel");
-        System.out.println("[5] - Listar Funcionários");
-        System.out.println("[6] - Cadastrar Cliente");
+        System.out.println("[3] - Listar veiculos");
+        System.out.println("[4] - Novo Aluguel");
+        System.out.println("[5] - Finalizar Aluguel");
+        System.out.println("[6] - Listar Funcionários");
+        System.out.println("[7] - Cadastrar Cliente");
     }
 
     public static void pausarSistema() {

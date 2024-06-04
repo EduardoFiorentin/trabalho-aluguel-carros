@@ -1,5 +1,4 @@
 package exceptions;
-
 /**
  * Exceção lançada quando um veículo não é encontrado.
  */

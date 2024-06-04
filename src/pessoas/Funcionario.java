@@ -7,7 +7,8 @@ public class Funcionario extends Pessoa {
     private String cargo;
     private double salario;
     private String senha; 
-     /**
+
+    /**
      * Construtor da classe Funcionario.
      * @param nome Nome do funcionário.
      * @param cpf CPF do funcionário.
@@ -26,11 +27,12 @@ public class Funcionario extends Pessoa {
 
     
     // Getters e setters
-     /**
+    /**
      * Obtém o cargo do funcionário.
      * @return O cargo do funcionário.
      */
     public String getCargo() { return cargo; }
+
     /**
      * Obtém o salário do funcionário.
      * @return O salário do funcionário.
@@ -40,21 +42,22 @@ public class Funcionario extends Pessoa {
     /*Metodo privativo para obter a senha do funcionário */
     private String getSenha() { return senha; }
 
-     /**
+    /**
      * Define o cargo do funcionário.
      * @param cargo O cargo do funcionário.
      */
-    public void setCargo(String cargo) { this.cargo = cargo; }
+    private void setCargo(String cargo) { this.cargo = cargo; }
+
     /**
      * Define o salário do funcionário.
      * @param salario O salário do funcionário.
      */
-    public void setSalario(double salario) { this.salario = salario; }
+    private void setSalario(double salario) { this.salario = salario; }
 
-   /*Método privado para definir a senha do funcionário */
-
+    /*Método privado para definir a senha do funcionário */
     private void setSenha(String senha) { this.senha = senha; }
 
+    
     /**
      * Verifica se a senha fornecida corresponde à senha do funcionário.
      * @param senha A senha a ser verificada.
@@ -70,6 +73,6 @@ public class Funcionario extends Pessoa {
      */
     @Override
     public String getInfo() {
-        return String.format("Informações de funcionário: \n\tId: %s\n\tNome: %s\n\tCargo: %s", getId(), getNome(), getCargo());
+        return String.format("%s - %s - %s", getId(), getNome(), getCargo());
     }
 }
