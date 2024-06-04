@@ -72,43 +72,51 @@ public class App {
         // fazer sistema de log out 
         
         try {
-            Interface.limparTela();
-            
-            // login no sistema 
-            while (!login) {
-                try {
-                    Interface.limparTela();
-                    Interface.cabecalhoLogin(); 
-
-                    Interface.mensagemInput("Digite seu usuário: ");
-                    String usuario = scannerString.nextLine().trim();
-
-                    Interface.limparTela();
-                    Interface.cabecalhoLogin();
-
-                    Interface.mensagemInput("Digite sua senha: ");
-                    String senha = scannerString.nextLine().trim(); 
-
-                    sistema.entrar(usuario, senha);
-                    break; 
-
-                }
-                catch(RuntimeException ex) {
-                    Interface.mensagemDeErro("Um erro inesperado ocorreu ao efetuar o login. Contate o suporte técnico!");
-                    Interface.mensagemDeErro(ex.getMessage());
-                    
-                }
-                catch(UsuarioNaoEncontrado ex) {
-                    Interface.mensagemDeErro(ex.getMessage());
-                    Interface.pausarSistema();
-                }
-            }
-
-            Interface.limparTela();
-            Interface.cabecalhoDoSistema();
-            Interface.mensagemSucesso("Login efetuado com sucesso!");
-            Interface.pausarSistema();
             while (rodando) {
+                Interface.limparTela();
+                
+                // login no sistema 
+                while (!login) {
+                    try {
+                        Interface.limparTela();
+                        Interface.cabecalhoLogin(); 
+    
+                        Interface.mensagemInput("Digite seu usuário [0 - sair] ");
+                        String usuario = scannerString.nextLine().trim();
+
+                        if (usuario.equals("0")) {
+                            rodando = false;
+                            break; 
+                        }
+    
+                        Interface.limparTela();
+                        Interface.cabecalhoLogin();
+    
+                        Interface.mensagemInput("Digite sua senha: ");
+                        String senha = scannerString.nextLine().trim(); 
+    
+                        sistema.entrar(usuario, senha);
+                        break; 
+    
+                    }
+                    catch(RuntimeException ex) {
+                        Interface.mensagemDeErro("Um erro inesperado ocorreu ao efetuar o login. Contate o suporte técnico!");
+                        Interface.mensagemDeErro(ex.getMessage());
+                        
+                    }
+                    catch(UsuarioNaoEncontrado ex) {
+                        Interface.mensagemDeErro(ex.getMessage());
+                        Interface.pausarSistema();
+                    }
+                }
+
+                if (!rodando) continue; 
+
+                // acesso ao sistema
+                Interface.limparTela();
+                Interface.cabecalhoDoSistema();
+                Interface.mensagemSucesso("Login efetuado com sucesso!");
+                Interface.pausarSistema();
 
                 Interface.limparTela();
                 Interface.cabecalhoDoSistema();
@@ -118,7 +126,7 @@ public class App {
 
                 switch (opcaoUsuario) {
                     case '0':
-                        rodando = false;
+                        login = false;
                         break;
                     
                     case '1':
@@ -326,7 +334,8 @@ public class App {
 
                                 cadastro = false; 
 
-                            } catch (RuntimeException ex) {
+                            } 
+                            catch (RuntimeException ex) {
                                 Interface.mensagemDeErro("Operação inválida! Tente novamente.");
                             }
                             catch(FuncionarioNaoEncontradoException ex) {

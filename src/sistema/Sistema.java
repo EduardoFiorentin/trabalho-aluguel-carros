@@ -164,7 +164,7 @@ public class Sistema implements ISistema{
     public void cadastrarCliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) throws FuncionarioNaoEncontradoException, InformacoesInsuficientesException{
         if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
         
-        if (nome.equals(null) || dataNascimento.equals(null) || endereco.equals(null) || telefone.equals(null) || email.equals(null) || cnh.equals(null) || cpf.equals(null)) {
+        if (nome.equals("") || dataNascimento.equals("") || endereco.equals("") || telefone.equals("") || email.equals("") || cnh.equals("") || cpf.equals("")) {
             throw new InformacoesInsuficientesException("Todas as informações são obrigatórias");
         }
 
