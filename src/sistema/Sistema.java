@@ -41,28 +41,18 @@ public class Sistema implements ISistema{
             new Funcionario("Mario", "000.000.000-01", "Rua D, 12", "00 60000-0000", "Vendedor", 500.0, "mario123")
         ); 
 
+        cadastrados.adicionar(
+            new Cliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null)
+        );
 
-        /**
-         * Cadastrar um cliente no sistema.
-         */
-        cadastrarCliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null);
-
-        /**
-         * Possibilita a adição de um veículo no sistema.
-         */
         veiculos.adicionar(new Veiculo("1", "UN-43", "azn0023", 30.0, 1, 2, "Uno", "GMB", "2000", "Laranja", 15000));
         veiculos.adicionar(new Veiculo("2", "", "atx0283", 30.0, 1, 2, "Celta", "PPL", "2010", "Preto", 30000));
         veiculos.adicionar(new Veiculo("3", "", "azd0350", 30.0, 1, 2, "Marea", "PPL", "1990", "Preto", 150000));
         
-        /**
-         * Adciona um aluguél ativo no sistema.
-         */
         alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("1"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("00000000000"), 10)); 
 
-        // cadastrados.pesquisar("00000000201").get(0).nome = "Genesio";
     }
 
-    // public List<Veiculo> getVeiculos() { return this.veiculos; }
     /* Métodos de acesso ao armazenamento. */
     /**
      * Obtém o armazenamento de aluguéis ativos.
@@ -98,7 +88,9 @@ public class Sistema implements ISistema{
     /**
      * Lista todos os funcionários cadastrados no sistema.
      */
-    public List<String> listarFuncionarios() {
+    public List<String> listarFuncionarios() throws FuncionarioNaoEncontradoException {
+        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+
         List<Pessoa> pessoas = cadastrados.pesquisar(); 
         Funcionario funcionario; 
         List<String> infoFuncionarios = new ArrayList(); 
@@ -115,7 +107,9 @@ public class Sistema implements ISistema{
     /**
      * Lista todos os clientes cadastrados no sistema.
      */
-    public List<String> listarClientes() {
+    public List<String> listarClientes() throws FuncionarioNaoEncontradoException{
+        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+
         List<Pessoa> pessoas = cadastrados.pesquisar(); 
         Cliente cliente; 
         List<String> infoClientes = new ArrayList(); 
@@ -132,7 +126,9 @@ public class Sistema implements ISistema{
     /**
      * Lista todos os vaículos cadastrados no sistema.
      */
-    public List<String> listarVeiculos()  {
+    public List<String> listarVeiculos() throws FuncionarioNaoEncontradoException {
+        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        
         List<String> infoVeiculos = new ArrayList<>();
 
         for (Veiculo veiculo : veiculos.pesquisar()) {
@@ -165,10 +161,15 @@ public class Sistema implements ISistema{
      * Cria um cliente novo com as informações fornecidas
      * Após isso, adiciona o cliente ao armazenamento de pessoas cadastradas.
      */ 
-    public boolean cadastrarCliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) {
+    public void cadastrarCliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) throws FuncionarioNaoEncontradoException, InformacoesInsuficientesException{
+        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        
+        if (nome.equals(null) || dataNascimento.equals(null) || endereco.equals(null) || telefone.equals(null) || email.equals(null) || cnh.equals(null) || cpf.equals(null)) {
+            throw new InformacoesInsuficientesException("Todas as informações são obrigatórias");
+        }
+
         Cliente novoCliente = new Cliente(nome, cpf, dataNascimento, endereco, telefone, email, cnh);
         cadastrados.adicionar(novoCliente);
-        return true; 
     } 
 
     /**
@@ -178,7 +179,9 @@ public class Sistema implements ISistema{
      * 
      * Remove o cliente com o ID fornecido do armazenamento de pessoas cadastrada.
      */
-    public boolean removerCliente(String id) {
+    public boolean removerCliente(String id) throws FuncionarioNaoEncontradoException{
+        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+
         return cadastrados.remover(id); 
     }
 
@@ -198,7 +201,9 @@ public class Sistema implements ISistema{
      * Cria um novo funcionário com as informações fornecidas.@interface.
      * Adiciona o funcionário ao armazenamento de pessoas cadastradas.
      */
-    public boolean cadastrarFuncionario(String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha) {
+    public boolean cadastrarFuncionario(String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha) throws FuncionarioNaoEncontradoException{
+        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        
         Funcionario novoFuncionario = new Funcionario(nome, cpf, endereco, telefone, cargo, salario, senha); 
         cadastrados.adicionar(novoFuncionario);
         return true; 
@@ -209,7 +214,9 @@ public class Sistema implements ISistema{
      * Obtém a lista de todos os aluguéis ativos no sistema
      * Exibe as informações do aluguel
      */
-    public List<String> listarAlugueisAtivos() {
+    public List<String> listarAlugueisAtivos() throws FuncionarioNaoEncontradoException{
+        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+
         ArrayList<String> alugueis = new ArrayList<>();
 
         for (Aluguel aluguel : getAlugueisAtivos()) {
@@ -231,7 +238,9 @@ public class Sistema implements ISistema{
      * Verifica se o cliente possui aluguéis ativos
      * Procura pelo aluguel associado ao veículo e finaliza-o
      */
-    public void finalizarAluguel(String idCliente, String idVeiculo) throws AluguelNaoEncontradoException, ClienteNaoEncontradoException {
+    public void finalizarAluguel(String idCliente, String idVeiculo) throws AluguelNaoEncontradoException, ClienteNaoEncontradoException, FuncionarioNaoEncontradoException {
+        
+        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
 
         List<Aluguel> alugueisDoCliente = pesquisarAlugadosPorCliente(idCliente);
 
@@ -246,7 +255,6 @@ public class Sistema implements ISistema{
             }
         }
 
-        // testar se a mudança será salva no armazenamento após chamar o finalizar 
         throw new AluguelNaoEncontradoException("Aluguel não encontrado!");
     }
 
@@ -263,6 +271,8 @@ public class Sistema implements ISistema{
      */
     public boolean alugarVeiculo(String idCliente, String idVeiculo, int dias) throws ClienteNaoEncontradoException, VeiculoNaoDisponivelException, VeiculoNaoEncontradoException, FuncionarioNaoEncontradoException {
         
+        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+
         Cliente cliente = (Cliente) cadastrados.pesquisar(idCliente); 
         if ( cliente == null ) throw new ClienteNaoEncontradoException("Cliente com ID: " + idCliente + " não encontrado!");
 
@@ -285,7 +295,9 @@ public class Sistema implements ISistema{
      * Verifica se o cliente com o ID fornecido existe
      * Verifica se o cliente possui aluguéis ativos e os retorna
      */
-    public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) throws ClienteNaoEncontradoException {
+    public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) throws ClienteNaoEncontradoException, FuncionarioNaoEncontradoException {
+        
+        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
         
         // verificar se cliente existe 
         Pessoa cliente = getArmazenamentoCadastrados().pesquisar(idCLiente); 
@@ -309,10 +321,8 @@ public class Sistema implements ISistema{
      */
     public void entrar(String id, String senha) throws UsuarioNaoEncontrado {
         Pessoa logUsuario = cadastrados.pesquisar(id);
-        // System.out.println("Log: "+logUsuario.getNome());
 
         if (logUsuario == null || !(logUsuario instanceof Funcionario)) throw new UsuarioNaoEncontrado("Usuário não existe!"); 
-        // if ((Funcionario)logUsuario)
         if (!((Funcionario)logUsuario).verificarSenha(senha)) throw new UsuarioNaoEncontrado("Senha incorreta!");
 
         setFuncionario(logUsuario);

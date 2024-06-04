@@ -5,6 +5,7 @@ import aluguel.Aluguel;
 import excecoes.AluguelNaoEncontradoException;
 import excecoes.ClienteNaoEncontradoException;
 import excecoes.FuncionarioNaoEncontradoException;
+import excecoes.InformacoesInsuficientesException;
 import excecoes.UsuarioNaoEncontrado;
 import excecoes.VeiculoNaoDisponivelException;
 import excecoes.VeiculoNaoEncontradoException;
@@ -22,19 +23,19 @@ public interface ISistema {
     /**
      * Lista todos os funcionários cadastrados no sistema.
      */
-    public List<String> listarFuncionarios();
+    public List<String> listarFuncionarios() throws FuncionarioNaoEncontradoException;
     /**
      * Lista todos os clientes cadastrados no sistema.
      */
-    public List<String> listarClientes();
+    public List<String> listarClientes() throws FuncionarioNaoEncontradoException;
     /**
      * Lista todos os aluguéis ativos no sistema.
      */
-    public List<String> listarAlugueisAtivos(); 
+    public List<String> listarAlugueisAtivos() throws FuncionarioNaoEncontradoException; 
     /**
      * Lista todos os veículos no sistema.
      */
-    public List<String> listarVeiculos(); 
+    public List<String> listarVeiculos() throws FuncionarioNaoEncontradoException; 
     /**
      * Obtém o armazenamento de pessoas cadastradas no sistema.
      * @return O armazenamento de pessoas cadastradas.
@@ -53,14 +54,14 @@ public interface ISistema {
      * @param cnh Número da CNH do cliente.
      * @return True se o cadastro for bem-sucedido, False caso contrário.
      */
-    public boolean cadastrarCliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh);
+    public void cadastrarCliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) throws FuncionarioNaoEncontradoException, InformacoesInsuficientesException;
     /**
      * Remove um cliente do sistema.
      *
      * @param id ID do cliente a ser removido.
      * @return True se a remoção for bem-sucedida, False caso contrário.
      */
-    public boolean removerCliente(String id);
+    public boolean removerCliente(String id) throws FuncionarioNaoEncontradoException;
     /**
      * Cadastra um novo funcionário no sistema.
      * @param id ID do funcionário.
@@ -72,7 +73,7 @@ public interface ISistema {
      * @param salario Salário do funcionário.
      * @return True se o cadastro for bem-sucedido, False caso contrário.
      */
-    public boolean cadastrarFuncionario(String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha);
+    public boolean cadastrarFuncionario(String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha) throws FuncionarioNaoEncontradoException;
 
 
     // metodos de gestao de alugueis 
@@ -93,7 +94,7 @@ public interface ISistema {
      * @throws AluguelNaoEncontradoException Exceção lançada se o aluguel não for encontrado.
      * @throws ClienteNaoEncontradoException Exceção lançada se o cliente não for encontrado.
      */
-    public void finalizarAluguel(String idCliente, String idVeiculo) throws AluguelNaoEncontradoException, ClienteNaoEncontradoException;
+    public void finalizarAluguel(String idCliente, String idVeiculo) throws AluguelNaoEncontradoException, ClienteNaoEncontradoException, FuncionarioNaoEncontradoException;
     
     /**
      * Pesquisa aluguéis realizados por um determinado cliente.
@@ -101,7 +102,7 @@ public interface ISistema {
      * @return Lista de aluguéis realizados pelo cliente.
      * @throws ClienteNaoEncontradoException Exceção lançada se o cliente não for encontrado.
      */
-    public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) throws ClienteNaoEncontradoException; 
+    public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) throws ClienteNaoEncontradoException, FuncionarioNaoEncontradoException; 
 
      /**
      * Permite que um usuário entre no sistema.
