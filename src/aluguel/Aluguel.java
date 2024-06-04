@@ -4,8 +4,8 @@ import pessoas.*;
 import veiculo.*;
 
 /**
- * A classe Aluguel é documentada com uma descrição geral do seu propósito e dos atributos principais.
- * A classe Aluguel representa o processo de aluguel de um veículo por um cliente.
+ * A classe Aluguel é documentada com uma descrição geral do seu propósito e dos atributos principais.<br/>
+ * A classe Aluguel representa o processo de aluguel de um veículo por um cliente. <br/>
  * Inclui informações sobre o veículo alugado, o cliente, o funcionário responsável, 
  * e o estado do aluguel.
  */
@@ -18,7 +18,7 @@ public class Aluguel implements Identificavel{
     private int diasDeAluguel;
 
     /**
-     * O construtor da classe Aluguel é documentado com uma descrição dos parâmetros.
+     * O construtor da classe Aluguel é documentado com uma descrição dos parâmetros.<br/>
      * Construtor para criar um novo Aluguel.
      *
      * @param id o identificador único do aluguel
