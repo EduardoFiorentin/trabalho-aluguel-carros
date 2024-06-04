@@ -2,16 +2,16 @@ package sistema;
 import java.util.List;
 
 import aluguel.Aluguel;
-import exceptions.AluguelNaoEncontradoException;
-import exceptions.ClienteNaoEncontradoException;
-import exceptions.FuncionarioNaoEncontradoException;
-import exceptions.UsuarioNaoEncontrado;
-import exceptions.VeiculoNaoDisponivelException;
-import exceptions.VeiculoNaoEncontradoException;
+import excecoes.AluguelNaoEncontradoException;
+import excecoes.ClienteNaoEncontradoException;
+import excecoes.FuncionarioNaoEncontradoException;
+import excecoes.UsuarioNaoEncontrado;
+import excecoes.VeiculoNaoDisponivelException;
+import excecoes.VeiculoNaoEncontradoException;
 import pessoas.Cliente;
 import pessoas.Funcionario;
 import pessoas.Pessoa;
-import utils.Armazenamento;
+import utilitarios.Armazenamento;
 import veiculo.Veiculo;
 
 

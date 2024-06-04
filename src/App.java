@@ -1,9 +1,3 @@
-import exceptions.AluguelNaoEncontradoException;
-import exceptions.ClienteNaoEncontradoException;
-import exceptions.FuncionarioNaoEncontradoException;
-import exceptions.UsuarioNaoEncontrado;
-import exceptions.VeiculoNaoDisponivelException;
-import exceptions.VeiculoNaoEncontradoException;
 import interfaces.Interface;
 import sistema.ISistema;
 import sistema.Sistema;
@@ -13,7 +7,14 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner; 
+import java.util.Scanner;
+
+import excecoes.AluguelNaoEncontradoException;
+import excecoes.ClienteNaoEncontradoException;
+import excecoes.FuncionarioNaoEncontradoException;
+import excecoes.UsuarioNaoEncontrado;
+import excecoes.VeiculoNaoDisponivelException;
+import excecoes.VeiculoNaoEncontradoException; 
 
 // Adição automática
     // funcionários 
