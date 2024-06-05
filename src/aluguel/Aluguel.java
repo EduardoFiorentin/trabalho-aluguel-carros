@@ -43,74 +43,87 @@ public class Aluguel implements Identificavel{
      * com uma breve descrição do que fazem, incluindo, quando aplicável, 
      * os parâmetros e valores de retorno.
     */
-     /**
+    
+    /**
      * Obtém o identificador único do aluguel.
      * @return o identificador único do aluguel
      */
     public String getId() { return id; }
+    
     /**
      * Verifica se o aluguel está ativo.
      * @return true se o aluguel estiver ativo, false caso contrário
      */
     public boolean getAtivo() { return ativo; } 
+    
     /**
      * Obtém o veículo que está sendo alugado.
      * @return o veículo que está sendo alugado
      */
     public Veiculo getVeiculo(){ return veiculo; }
+    
     /**
      * Obtém o cliente que está alugando o veículo.
      * @return o cliente que está alugando o veículo
      */
     public Cliente getCliente(){ return cliente; }
+    
     /**
      * Obtém o funcionário responsável pelo aluguel.
      * @return o funcionário responsável pelo aluguel
      */
     public Funcionario getFuncionarioResponsavel(){ return funcionarioResponsavel; }
+    
     /**
      * Obtém uma string formatada com as informações do aluguel.
      * @return as informações do aluguel formatadas
      */
     public String getInfo() { return String.format("Cliente: %s - %s | Funcionario: %s - %s | Veículo: %s - %s, %s - placa: %s | ativo: %s", cliente.getNome(), cliente.getCpf(), funcionarioResponsavel.getNome(), funcionarioResponsavel.getCargo(), veiculo.getTipoVeiculo(), veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), getAtivo() ? "sim": "não");}
+    
     /**
      * Obtém o número de dias pelos quais o veículo será alugado.
      * @return o número de dias de aluguel
      */
     public int getDiasDeAluguel() {return diasDeAluguel;}
+    
     /**
      * Define o identificador único do aluguel.
      * @param id o novo identificador único do aluguel
      */
 
     public void setId(String id)                { this.id = id; }
+    
     /**
      * Define se o aluguel está ativo.
      * @param ativo o novo estado de atividade do aluguel
      */
     public void setAtivo (boolean ativo)        { this.ativo = ativo; }
+    
     /**
      * Define o veículo que está sendo alugado.
      * @param veiculo o novo veículo a ser alugado
      */
     public void setVeiculo(Veiculo veiculo)     { this.veiculo = veiculo; }
+    
     /**
      * Define o cliente que está alugando o veículo.
      * @param cliente o novo cliente que está alugando o veículo
      */
     public void setCliente(Cliente cliente)     { this.cliente = cliente; }
+    
     /**
      * Define o funcionário responsável pelo aluguel.
      * @param funcionarioResponsavel o novo funcionário responsável pelo aluguel
      */
     public void setDiasDeAluguel(int diasDeAluguel) { this.diasDeAluguel = diasDeAluguel;}
-        /**
+    
+    /**
      * Define o número de dias pelos quais o veículo será alugado.
      * @param diasDeAluguel o novo número de dias de aluguel
      */
-
     public void setFuncionarioResponsavel(Funcionario funcionarioResponsavel)   { this.funcionarioResponsavel = funcionarioResponsavel; }
-     /**
+     
+    /**
      * Inicia o aluguel, definindo o veículo como não disponível e o aluguel como ativo.
      */
 
@@ -118,10 +131,10 @@ public class Aluguel implements Identificavel{
         veiculo.setDisponivel(false);
         setAtivo(true);
     }
+
     /**
      * Finaliza o aluguel, definindo o veículo como disponível e o aluguel como inativo.
      */
-    
     public void finalizar() {
         veiculo.setDisponivel(true);
         setAtivo(false);

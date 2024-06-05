@@ -12,6 +12,7 @@ import java.util.Scanner;
 import excecoes.AluguelNaoEncontradoException;
 import excecoes.ClienteNaoEncontradoException;
 import excecoes.FuncionarioNaoEncontradoException;
+import excecoes.InformacoesInsuficientesException;
 import excecoes.UsuarioNaoEncontrado;
 import excecoes.VeiculoNaoDisponivelException;
 import excecoes.VeiculoNaoEncontradoException; 
@@ -71,43 +72,51 @@ public class App {
         // fazer sistema de log out 
         
         try {
-            Interface.limparTela();
-            
-            // login no sistema 
-            while (!login) {
-                try {
-                    Interface.limparTela();
-                    Interface.cabecalhoLogin(); 
-
-                    Interface.mensagemInput("Digite seu usuário: ");
-                    String usuario = scannerString.nextLine().trim();
-
-                    Interface.limparTela();
-                    Interface.cabecalhoLogin();
-
-                    Interface.mensagemInput("Digite sua senha: ");
-                    String senha = scannerString.nextLine().trim(); 
-
-                    sistema.entrar(usuario, senha);
-                    break; 
-
-                }
-                catch(RuntimeException ex) {
-                    Interface.mensagemDeErro("Um erro inesperado ocorreu ao efetuar o login. Contate o suporte técnico!");
-                    Interface.mensagemDeErro(ex.getMessage());
-                    
-                }
-                catch(UsuarioNaoEncontrado ex) {
-                    Interface.mensagemDeErro(ex.getMessage());
-                    Interface.pausarSistema();
-                }
-            }
-
-            Interface.limparTela();
-            Interface.cabecalhoDoSistema();
-            Interface.mensagemSucesso("Login efetuado com sucesso!");
-            Interface.pausarSistema();
             while (rodando) {
+                Interface.limparTela();
+                
+                // login no sistema 
+                while (!login) {
+                    try {
+                        Interface.limparTela();
+                        Interface.cabecalhoLogin(); 
+    
+                        Interface.mensagemInput("Digite seu usuário [0 - sair] ");
+                        String usuario = scannerString.nextLine().trim();
+
+                        if (usuario.equals("0")) {
+                            rodando = false;
+                            break; 
+                        }
+    
+                        Interface.limparTela();
+                        Interface.cabecalhoLogin();
+    
+                        Interface.mensagemInput("Digite sua senha: ");
+                        String senha = scannerString.nextLine().trim(); 
+    
+                        sistema.entrar(usuario, senha);
+                        break; 
+    
+                    }
+                    catch(RuntimeException ex) {
+                        Interface.mensagemDeErro("Um erro inesperado ocorreu ao efetuar o login. Contate o suporte técnico!");
+                        Interface.mensagemDeErro(ex.getMessage());
+                        
+                    }
+                    catch(UsuarioNaoEncontrado ex) {
+                        Interface.mensagemDeErro(ex.getMessage());
+                        Interface.pausarSistema();
+                    }
+                }
+
+                if (!rodando) continue; 
+
+                // acesso ao sistema
+                Interface.limparTela();
+                Interface.cabecalhoDoSistema();
+                Interface.mensagemSucesso("Login efetuado com sucesso!");
+                Interface.pausarSistema();
 
                 Interface.limparTela();
                 Interface.cabecalhoDoSistema();
@@ -117,7 +126,7 @@ public class App {
 
                 switch (opcaoUsuario) {
                     case '0':
-                        rodando = false;
+                        login = false;
                         break;
                     
                     case '1':
@@ -125,14 +134,19 @@ public class App {
                         Interface.cabecalhoDoSistema();
                         Interface.mensagem("Lista de clientes: ");
 
-                        List<String> infoClientes = sistema.listarClientes();  
-
-                        for (String info: infoClientes) {
-                            Interface.mensagem("\t# "+info);
+                        try {
+                            List<String> infoClientes = sistema.listarClientes(); 
+                            for (String info: infoClientes) {
+                                Interface.mensagem("\t# "+info);
+                            } 
+                            Interface.pararSistema(scannerPause);
+                            break; 
                         }
-
-                        Interface.pararSistema(scannerPause);
-                        break; 
+                        catch(FuncionarioNaoEncontradoException ex) {
+                            Interface.mensagemDeErro("Faça login no sistema para continuar");
+                            login = false; 
+                            Interface.pausarSistema();
+                        }
 
                     case '2':
                         try {
@@ -153,8 +167,14 @@ public class App {
 
                             Interface.pararSistema(scannerPause);
 
-                        } catch (RuntimeException ex) {
+                        } 
+                        catch (RuntimeException ex) {
                             Interface.mensagemDeErro("Um erro inesperado ocorreu! Contate o suporte técnico : " + ex.getMessage());
+                        }
+                        catch(FuncionarioNaoEncontradoException ex) {
+                            Interface.mensagemDeErro("Faça login no sistema para continuar");
+                            login = false; 
+                            Interface.pausarSistema();
                         }
                         break; 
 
@@ -163,13 +183,20 @@ public class App {
                         Interface.cabecalhoDoSistema();
 
                         Interface.mensagem("Veiculos: ");
-                        List<String> informacoes = sistema.listarVeiculos(); 
+                        try {
+                            List<String> informacoes = sistema.listarVeiculos(); 
 
-                        for (String informacao : informacoes) {
-                            Interface.mensagem("\t# "+informacao);
+                            for (String informacao : informacoes) {
+                                Interface.mensagem("\t# "+informacao);
+                            }
+
+                            Interface.pararSistema(scannerPause);
                         }
-
-                        Interface.pararSistema(scannerPause);
+                        catch(FuncionarioNaoEncontradoException ex) {
+                            Interface.mensagemDeErro("Faça login no sistema para continuar");
+                            login = false; 
+                            Interface.pausarSistema();
+                        }
                         break; 
 
                     case '4':
@@ -189,17 +216,9 @@ public class App {
 
                                 Interface.mensagem("Id do veículo: [-1 - cancelar]");
                                 String idVeiculo = scannerString.nextLine();
-                                // if (idVeiculo == "-1") {
-                                //     aluguel = false;
-                                //     break;
-                                // } 
 
                                 Interface.mensagem("Aluguel válido por quantos dias: [-1 - cancelar]");
                                 int dias = scannerInt.nextInt(); 
-                                // if (dias == -1) {
-                                //     aluguel = false;
-                                //     break;
-                                // } 
 
                                 sistema.alugarVeiculo(cpfCliente, idVeiculo, dias);
                                 aluguel = false; 
@@ -249,6 +268,11 @@ public class App {
                             Interface.mensagemDeErro(ex.getMessage());
                             Interface.pausarSistema();
                         }
+                        catch(FuncionarioNaoEncontradoException ex) {
+                            Interface.mensagemDeErro("Faça login no sistema para continuar");
+                            login = false; 
+                            Interface.pausarSistema();
+                        }
                         
                         break;  
 
@@ -257,13 +281,19 @@ public class App {
                         Interface.cabecalhoDoSistema();
                         Interface.mensagem("Lista de Funcionarios: ");
 
-                        List<String> infoFuncionarios = sistema.listarFuncionarios();  
+                        try {
+                            List<String> infoFuncionarios = sistema.listarFuncionarios();  
 
-                        for (String info: infoFuncionarios) {
-                            Interface.mensagem("\t# "+info);
+                            for (String info: infoFuncionarios) {
+                                Interface.mensagem("\t# "+info);
+                            }
+                            Interface.pararSistema(scannerPause);
                         }
-
-                        Interface.pararSistema(scannerPause);
+                        catch(FuncionarioNaoEncontradoException ex) {
+                            Interface.mensagemDeErro("Faça login no sistema para continuar");
+                            login = false; 
+                            Interface.pausarSistema();
+                        }
                         break; 
 
                     case '7':
@@ -300,12 +330,23 @@ public class App {
                                 Interface.mensagem("CNH");
                                 String cnh = scannerString.nextLine();
                                 
-                                cadastro = !sistema.cadastrarCliente(nome, cpf, dataNascimento, endereco, telefone, email, cnh);
+                                sistema.cadastrarCliente(nome, cpf, dataNascimento, endereco, telefone, email, cnh);
 
-                            } catch (RuntimeException ex) {
+                                cadastro = false; 
+
+                            } 
+                            catch (RuntimeException ex) {
                                 Interface.mensagemDeErro("Operação inválida! Tente novamente.");
                             }
-
+                            catch(FuncionarioNaoEncontradoException ex) {
+                                Interface.mensagemDeErro("Faça login no sistema para continuar");
+                                login = false; 
+                                Interface.pausarSistema();
+                            }
+                            catch(InformacoesInsuficientesException ex) {
+                                Interface.mensagemDeErro(ex.getMessage());
+                                Interface.pararSistema(scannerPause);
+                            }
                         }
 
                         break; 
@@ -314,69 +355,8 @@ public class App {
                         Interface.mensagemDeErro("Opção inválida!");
                         break;
                 }
-                // apagar cliente 
-                    // coletar id 
-
-                    
-                // listar clientes
-
-        
-                // listar funcionários 
-        
-        
-                // listar veículos 
-        
-        
-                // alugar veículo 
-        
-        
-                // finalizar aluguel de veículo 
-    
-        
-                // sair do sistema 
-
             }
-
-            // System.out.println("Opções do sistema: ");
-            // System.out.println("[0] - Sair");
-            // System.out.println("[1] - Listar Clientes");
-            // System.out.println("[2] - Listar Alugueis");
-            // System.out.println("[3] - Novo Aluguel");
-            // System.out.println("[4] - Finalizar Aluguel");
-            // System.out.println("[5] - Listar Funcionários");
-            // System.out.println("[6] - Cadastrar Cliente");
-
-
-            // sistema.listarFuncionarios();
-            // sistema.listarClientes();
-            // sistema.listarAlugueisAtivos();
-            // sistema.listarFuncionarios();
-    
-
-            // sistema.listarAlugueisAtivos();
-            // sistema.removerCliente("2");
-            // sistema.listarAlugueisAtivos();
-            // sistema.finalizarAluguel("00000000201", "1");
-            // System.out.println(sistema.getArmazenamentoCadastrados().pesquisar("00000000201").getInfo());
-            
-            // sistema.listarAlugueisAtivos();
-            // sistema.listarClientes();
         } 
-
-        /** Tratamento de excessões obrigatórias do sistema  */
-        // catch (RuntimeException ex) {
-        //     System.out.println(ex.getMessage());
-        //     Interface.mensagemDeErro("Ocorreu um erro inesperado!");
-        //     // os.getDir("c:/").remove()
-        // }
-        // catch (AluguelNaoEncontradoException ex) {
-        //     System.out.println(ex.getMessage());
-        //     Interface.mensagemDeErro("Ocorreu um erro inesperado!");
-        // }
-        // catch (ClienteNaoEncontradoException ex) {
-        //     System.out.println(ex.getMessage());
-        //     Interface.mensagemDeErro("Ocorreu um erro inesperado!");
-        // }
         
         finally {
             // finalizar sistema 
