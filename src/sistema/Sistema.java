@@ -27,7 +27,7 @@ public class Sistema implements ISistema{
      */
     public Sistema() {
 
-        // adicionar funcionarios  
+        // popular dados de inicialização 
         /**
          * São criados métodos que possibilita o cadastro de funcionários, clientes e alugueis ativos.
          * Esse servirá para que quando necessário acessar o Sistema para processar uma transação 
@@ -45,11 +45,41 @@ public class Sistema implements ISistema{
             new Cliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null)
         );
 
-        veiculos.adicionar(new Veiculo("1", "UN-43", "azn0023", 30.0, 1, 2, "Uno", "GMB", "2000", "Laranja", 15000));
-        veiculos.adicionar(new Veiculo("2", "", "atx0283", 30.0, 1, 2, "Celta", "PPL", "2010", "Preto", 30000));
-        veiculos.adicionar(new Veiculo("3", "", "azd0350", 30.0, 1, 2, "Marea", "PPL", "1990", "Preto", 150000));
+        // veiculos.adicionar(new Veiculo("1", "UN-43", "azn0023", 30.0, 1, 2, "Uno", "GMB", "2000", "Laranja", 15000));
+        // veiculos.adicionar(new Veiculo("2", "", "atx0283", 30.0, 1, 2, "Celta", "PPL", "2010", "Preto", 30000));
+        // veiculos.adicionar(new Veiculo("3", "", "azd0350", 30.0, 1, 2, "Marea", "PPL", "1990", "Preto", 150000));
         
-        alugueisAtivos.adicionar(new Aluguel("10", veiculos.pesquisar("1"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("00000000000"), 10)); 
+        // veículos pré cadastrados 
+        veiculos.adicionar(new Veiculo("1", "Modelo X", "ABC1234", 50.0, 0, 1, "Tesla", "Sedan", "2022", "Preto", 5000));
+        veiculos.adicionar(new Veiculo("2", "Civic", "DEF5678", 45.0, 0, 1, "Honda", "Sedan", "2021", "Prata", 10000));
+        veiculos.adicionar(new Veiculo("3", "Corolla", "GHI9012", 40.0, 0, 1, "Toyota", "Sedan", "2020", "Branco", 20000));
+        veiculos.adicionar(new Veiculo("4", "Golf", "JKL3456", 35.0, 0, 1, "Volkswagen", "Hatch", "2019", "Azul", 15000));
+        veiculos.adicionar(new Veiculo("5", "Model 3", "MNO7890", 60.0, 0, 1, "Tesla", "Sedan", "2023", "Vermelho", 3000));
+        veiculos.adicionar(new Veiculo("6", "Ninja 300", "PQR1234", 25.0, 1, 2, "Kawasaki", "Esportiva", "2020", "Verde", 5000));
+        veiculos.adicionar(new Veiculo("7", "CB 500X", "STU5678", 30.0, 1, 2, "Honda", "Trail", "2019", "Preto", 8000));
+        veiculos.adicionar(new Veiculo("8", "MT-03", "VWX9012", 28.0, 1, 2, "Yamaha", "Naked", "2021", "Azul", 4000));
+        veiculos.adicionar(new Veiculo("9", "R3", "YZA3456", 32.0, 1, 2, "Yamaha", "Esportiva", "2022", "Branco", 3000));
+        veiculos.adicionar(new Veiculo("10", "Ducati Monster", "BCD7890", 35.0, 1, 2, "Ducati", "Naked", "2023", "Vermelho", 2000));
+        veiculos.adicionar(new Veiculo("11", "Xiaomi M365", "EFG1234", 15.0, 2, 3, "Xiaomi", "Elétrico", "2021", "Preto", 1000));
+        veiculos.adicionar(new Veiculo("12", "Segway Ninebot", "HIJ5678", 18.0, 2, 3, "Segway", "Elétrico", "2022", "Branco", 800));
+        veiculos.adicionar(new Veiculo("13", "Razor E300", "KLM9012", 12.0, 2, 3, "Razor", "Elétrico", "2020", "Azul", 1200));
+        veiculos.adicionar(new Veiculo("14", "Gotrax GXL", "NOP3456", 20.0, 2, 3, "Gotrax", "Elétrico", "2023", "Vermelho", 500));
+        veiculos.adicionar(new Veiculo("15", "Glion Dolly", "QRS7890", 17.0, 2, 3, "Glion", "Elétrico", "2021", "Cinza", 700));
+
+        // Funcionários pré cadastrados 
+        cadastrados.adicionar(new Funcionario("Eduardo", "000.000.000-00", "Rua S, 22", "00 90000-0000", "Vendedor", 10500.0, "12345"));
+        cadastrados.adicionar(new Funcionario("Ana Maria", "111.111.111-11", "Avenida Central, 101", "11 91111-1111", "Gerente", 15000.0, "senha123"));
+        cadastrados.adicionar(new Funcionario("Carlos Silva", "222.222.222-22", "Rua das Flores, 45", "22 92222-2222", "Assistente", 8000.0, "abc123"));
+        cadastrados.adicionar(new Funcionario("Beatriz Souza", "333.333.333-33", "Rua do Sol, 120", "33 93333-3333", "Vendedor", 9500.0, "beatriz123"));
+        cadastrados.adicionar(new Funcionario("Fernando Costa", "444.444.444-44", "Avenida Paulista, 1000", "44 94444-4444", "Analista", 12000.0, "fercosta"));
+        cadastrados.adicionar(new Funcionario("Mariana Rocha", "555.555.555-55", "Praça da Liberdade, 55", "55 95555-5555", "Recepcionista", 7000.0, "mariana2023"));
+        cadastrados.adicionar(new Funcionario("Rafael Gomes", "666.666.666-66", "Rua das Palmeiras, 300", "66 96666-6666", "Desenvolvedor", 13500.0, "rafaelDev"));
+        cadastrados.adicionar(new Funcionario("Juliana Alves", "777.777.777-77", "Rua das Acácias, 78", "77 97777-7777", "Designer", 11000.0, "julidesign"));
+        cadastrados.adicionar(new Funcionario("Roberto Lima", "888.888.888-88", "Avenida Brasil, 200", "88 98888-8888", "Vendedor", 9500.0, "roberto88"));
+        cadastrados.adicionar(new Funcionario("Patrícia Mendes", "999.999.999-99", "Rua das Hortências, 45", "99 99999-9999", "Analista", 12500.0, "pat1234"));
+
+
+        alugueisAtivos.adicionar(new Aluguel(veiculos.pesquisar("1"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("00000000000"), 10)); 
 
     }
 
@@ -280,7 +310,7 @@ public class Sistema implements ISistema{
         if ( veiculo == null ) throw new VeiculoNaoEncontradoException("Veiculo com ID: " + idVeiculo + " não encontrado!");
         if ( !veiculo.isDisponivel() ) throw new VeiculoNaoDisponivelException("Veículo com ID: "+idVeiculo+" não está disponível no momento!"); 
         
-        Aluguel aluguel = new Aluguel(UniqueIDGenerator.generateUniqueID(), veiculo, cliente, (Funcionario) getFuncionario(), dias);
+        Aluguel aluguel = new Aluguel(veiculo, cliente, (Funcionario) getFuncionario(), dias);
         alugueisAtivos.adicionar(aluguel);
 
         return true;

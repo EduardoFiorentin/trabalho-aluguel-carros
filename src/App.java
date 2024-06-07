@@ -113,7 +113,16 @@ public class App {
                         String senha = scannerString.nextLine().trim(); 
                         /*Tenta entra no istema. */
                         sistema.entrar(usuario, senha);
-                        //login = true; Login bem sucedido
+                        login = true; // Login bem sucedido
+
+                        /**Exibe o menu principal e processa a opção escolhida pelo usuário.
+                        * Acesso ao sistema após o Login para*/
+                        Interface.limparTela();
+                        Interface.cabecalhoDoSistema();
+                        Interface.mensagemSucesso("Login efetuado com sucesso!");
+                        Interface.pausarSistema();
+
+
                         break; 
     
                     }
@@ -131,12 +140,6 @@ public class App {
                 }
                 /*Verifica se o usuário deseja sair */
                 if (!rodando) continue; 
-                /**Exibe o menu principal e processa a opção escolhida pelo usuário.
-                * Acesso ao sistema após o Login para*/
-                Interface.limparTela();
-                Interface.cabecalhoDoSistema();
-                Interface.mensagemSucesso("Login efetuado com sucesso!");
-                Interface.pausarSistema();
 
                 Interface.limparTela();
                 Interface.cabecalhoDoSistema();

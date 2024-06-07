@@ -1,6 +1,7 @@
 package aluguel;
 
 import pessoas.*;
+import utilitarios.UniqueIDGenerator;
 import veiculo.*;
 
 /**
@@ -27,8 +28,8 @@ public class Aluguel implements Identificavel{
      * @param funcionarioResponsavel o funcionário responsável pelo aluguel
      * @param diasDeAluguel o número de dias pelos quais o veículo será alugado
     */
-	public Aluguel(String id, Veiculo veiculo, Cliente cliente, Funcionario funcionarioResponsavel, int diasDeAluguel) {
-        setId(id);
+	public Aluguel(Veiculo veiculo, Cliente cliente, Funcionario funcionarioResponsavel, int diasDeAluguel) {
+        setId(UniqueIDGenerator.generateUniqueID());
         setVeiculo(veiculo);
         setCliente(cliente);
         setFuncionarioResponsavel(funcionarioResponsavel);

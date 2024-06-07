@@ -11,7 +11,7 @@ import pessoas.Identificavel;/*Importa a interface Identificavel, que deve ser i
  */
 public class Armazenamento<T extends Identificavel>{
     /* Declara uma lista para armazenar os objetos do tipo T. */
-    private List<T> armazenamento = new ArrayList<>(); ;
+    private List<T> armazenamento = new ArrayList<>(); 
     /**
      * Retorna a lista de armazenamento.
      * @return Lista de armazenamento.
