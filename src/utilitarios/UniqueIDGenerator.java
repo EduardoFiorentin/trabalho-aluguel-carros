@@ -16,7 +16,7 @@ public class UniqueIDGenerator {
         /*Imprime o ID único gerado no console. */
         System.out.println("Generated Unique ID: " + uniqueID);
     }
-    /*/**
+    /**
      * Gera um identificador único.
      *
      * @return Uma string representando um identificador único.
