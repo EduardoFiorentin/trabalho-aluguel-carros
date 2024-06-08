@@ -61,6 +61,6 @@ public class Cliente extends Pessoa {
 */
     @Override
     public String getInfo() {
-        return String.format("\tID: %s\tNome: %s\tCPF: %s\tCNH: %s\tEndereço: %s\tTelefone: %s", getId(), getNome(), getCpf(), getCnh(), getEndereco(), getTelefone());
+        return String.format("ID: %s\tNome: %s\tCPF: %s\tCNH: %s\tEndereço: %s\tTelefone: %s", getId(), getNome(), getCpf(), getCnh(), getEndereco(), getTelefone());
     }
 }

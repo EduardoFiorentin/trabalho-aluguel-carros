@@ -42,7 +42,16 @@ public class Sistema implements ISistema{
         ); 
 
         cadastrados.adicionar(
-            new Cliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", null)
+            new Cliente("Marcelo", "000.000.002-01", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", "12345678901")
+        );
+        cadastrados.adicionar(
+            new Cliente("Lucas", "000.000.000-06", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", "22345678901")
+        );
+        cadastrados.adicionar(
+            new Cliente("Breno", "000.000.000-11", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", "32345678901")
+        );
+        cadastrados.adicionar(
+            new Cliente("Marcio", "000.000.001-21", "10/03/2005", "Rua N - 45", "(54) 99996-3305", "marcelo@marcelo.marcelo", "42345678901")
         );
 
         // veiculos.adicionar(new Veiculo("1", "UN-43", "azn0023", 30.0, 1, 2, "Uno", "GMB", "2000", "Laranja", 15000));
@@ -80,46 +89,58 @@ public class Sistema implements ISistema{
 
 
         alugueisAtivos.adicionar(new Aluguel(veiculos.pesquisar("1"), (Cliente)cadastrados.pesquisar("00000000201"), (Funcionario)cadastrados.pesquisar("00000000000"), 10)); 
+        alugueisAtivos.adicionar(new Aluguel(veiculos.pesquisar("2"), (Cliente)cadastrados.pesquisar("00000000006"), (Funcionario)cadastrados.pesquisar("22222222222"), 15)); 
+        alugueisAtivos.adicionar(new Aluguel(veiculos.pesquisar("3"), (Cliente)cadastrados.pesquisar("00000000011"), (Funcionario)cadastrados.pesquisar("66666666666"), 45)); 
 
     }
+
+    // métodos de gerenciamento interno
 
     /* Métodos de acesso ao armazenamento. */
     /**
      * Obtém o armazenamento de aluguéis ativos.
      * @return O armazenamento de aluguéis ativos.
      */
-    public List<Aluguel> getAlugueisAtivos() { return alugueisAtivos.pesquisar(); }
+    private List<Aluguel> getAlugueisAtivos() { return alugueisAtivos.pesquisar(); }
 
     /**
      * Obtém o armazenamento de aluguéis.
      * @return O armazenamento de aluguéis.
      */
-    public Armazenamento<Aluguel> getArmazenamentoAlugueis() { return alugueisAtivos; }
+    private Armazenamento<Aluguel> getArmazenamentoAlugueis() { return alugueisAtivos; }
 
     /**
      * Obtém o armazenamento de pessoas cadastradas.
      * @return O armazenamento de pessoas cadastradas.
      */
-    public Armazenamento<Pessoa> getArmazenamentoCadastrados() {return cadastrados; }
+    private Armazenamento<Pessoa> getArmazenamentoCadastrados() {return cadastrados; }
     
     /**
      * Obtém o funcionário atual no sistema.
      * @return O funcionário atual no sistema.
      */
-    public Pessoa getFuncionario() { return funcionario; }
+    private Pessoa getFuncionario() { return funcionario; }
     
     /**
      * Atualiza o funcionário atual no sistema.
      */
-    public void setFuncionario(Pessoa funcionario) { this.funcionario = funcionario; }
+    private void setFuncionario(Pessoa funcionario) { this.funcionario = funcionario; }
+    
+    /**
+     * Atualiza o funcionário atual no sistema.
+     */
+    private void verificarLogin() throws FuncionarioNaoEncontradoException {
+        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+    }
     
     
+    // métodos do sistema 
     /* Métodos de listagem de informações*/
     /**
      * Lista todos os funcionários cadastrados no sistema.
      */
     public List<String> listarFuncionarios() throws FuncionarioNaoEncontradoException {
-        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        verificarLogin();
 
         List<Pessoa> pessoas = cadastrados.pesquisar(); 
         Funcionario funcionario; 
@@ -138,7 +159,7 @@ public class Sistema implements ISistema{
      * Lista todos os clientes cadastrados no sistema.
      */
     public List<String> listarClientes() throws FuncionarioNaoEncontradoException{
-        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        verificarLogin();
 
         List<Pessoa> pessoas = cadastrados.pesquisar(); 
         Cliente cliente; 
@@ -157,7 +178,7 @@ public class Sistema implements ISistema{
      * Lista todos os vaículos cadastrados no sistema.
      */
     public List<String> listarVeiculos() throws FuncionarioNaoEncontradoException {
-        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        verificarLogin();
         
         List<String> infoVeiculos = new ArrayList<>();
 
@@ -168,15 +189,7 @@ public class Sistema implements ISistema{
         return infoVeiculos; 
     }
 
-    // CRUD Aluguel 
-    
-    // Método para finalizar um aluguel
 
-
-    
-    // metodos gerenciamento de pessoas  
-
-    /* metodos gerenciamento de pessoas*/
     /**
      * Cadastra um novo cliente no sistema.
      * @param nome Nome do cliente.
@@ -192,7 +205,7 @@ public class Sistema implements ISistema{
      * Após isso, adiciona o cliente ao armazenamento de pessoas cadastradas.
      */ 
     public void cadastrarCliente(String nome, String cpf, String dataNascimento, String endereco, String telefone, String email, String cnh) throws FuncionarioNaoEncontradoException, InformacoesInsuficientesException{
-        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        verificarLogin();
         
         if (nome.equals("") || dataNascimento.equals("") || endereco.equals("") || telefone.equals("") || email.equals("") || cnh.equals("") || cpf.equals("")) {
             throw new InformacoesInsuficientesException("Todas as informações são obrigatórias");
@@ -210,7 +223,7 @@ public class Sistema implements ISistema{
      * Remove o cliente com o ID fornecido do armazenamento de pessoas cadastrada.
      */
     public boolean removerCliente(String id) throws FuncionarioNaoEncontradoException{
-        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        verificarLogin();
 
         return cadastrados.remover(id); 
     }
@@ -232,7 +245,7 @@ public class Sistema implements ISistema{
      * Adiciona o funcionário ao armazenamento de pessoas cadastradas.
      */
     public boolean cadastrarFuncionario(String nome, String cpf, String endereco, String telefone, String cargo, double salario, String senha) throws FuncionarioNaoEncontradoException{
-        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        verificarLogin();
         
         Funcionario novoFuncionario = new Funcionario(nome, cpf, endereco, telefone, cargo, salario, senha); 
         cadastrados.adicionar(novoFuncionario);
@@ -245,7 +258,7 @@ public class Sistema implements ISistema{
      * Exibe as informações do aluguel
      */
     public List<String> listarAlugueisAtivos() throws FuncionarioNaoEncontradoException{
-        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        verificarLogin();
 
         ArrayList<String> alugueis = new ArrayList<>();
 
@@ -270,7 +283,8 @@ public class Sistema implements ISistema{
      */
     public void finalizarAluguel(String idCliente, String idVeiculo) throws AluguelNaoEncontradoException, ClienteNaoEncontradoException, FuncionarioNaoEncontradoException {
         
-        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        verificarLogin();
+
 
         List<Aluguel> alugueisDoCliente = pesquisarAlugadosPorCliente(idCliente);
 
@@ -301,7 +315,8 @@ public class Sistema implements ISistema{
      */
     public boolean alugarVeiculo(String idCliente, String idVeiculo, int dias) throws ClienteNaoEncontradoException, VeiculoNaoDisponivelException, VeiculoNaoEncontradoException, FuncionarioNaoEncontradoException {
         
-        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        verificarLogin();
+
 
         Cliente cliente = (Cliente) cadastrados.pesquisar(idCliente); 
         if ( cliente == null ) throw new ClienteNaoEncontradoException("Cliente com ID: " + idCliente + " não encontrado!");
@@ -327,9 +342,10 @@ public class Sistema implements ISistema{
      */
     public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) throws ClienteNaoEncontradoException, FuncionarioNaoEncontradoException {
         
-        if (getFuncionario() == null) throw new FuncionarioNaoEncontradoException("É necessário fazer login no sistema para realizar esta operação!"); 
+        verificarLogin();
+
         
-        // verificar se cliente existe 
+        // verificar se o cliente existe 
         Pessoa cliente = getArmazenamentoCadastrados().pesquisar(idCLiente); 
         if (cliente == null) throw new ClienteNaoEncontradoException("CLiente com ID: "+idCLiente+" não existe!");
         

@@ -209,7 +209,7 @@ public class App {
                     case '3':/*Lista todos os veículos cadastrados no sistema. */
                         Interface.limparTela();
                         Interface.cabecalhoDoSistema();
-
+ 
                         Interface.mensagem("Veiculos: ");
                         try {
                             /*Lista veículos cadastrados no sistema */
@@ -388,6 +388,9 @@ public class App {
                                 Interface.mensagemDeErro(ex.getMessage());
                                 Interface.pararSistema(scannerPause);
                             }
+                            // catch (StringIndexOutOfBoundsException ex) {
+                            //     continue; 
+                            // }
                         }
 
                         break; 
@@ -396,7 +399,7 @@ public class App {
                              * Caso o Funcionário digite um número que não consta no painel.@interface
                              * Será exibido uma mensagem para opção inválida */
                         Interface.mensagemDeErro("Opção inválida!");
-                        break;
+                        
                 }
             }
         } 
