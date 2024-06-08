@@ -36,11 +36,7 @@ public interface ISistema {
      * Lista todos os veículos no sistema.
      */
     public List<String> listarVeiculos() throws FuncionarioNaoEncontradoException; 
-    /**
-     * Obtém o armazenamento de pessoas cadastradas no sistema.
-     * @return O armazenamento de pessoas cadastradas.
-     */
-    public Armazenamento<Pessoa> getArmazenamentoCadastrados();
+
 
     // metodos de gestão de cadastros
     /**

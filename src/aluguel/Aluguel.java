@@ -1,6 +1,7 @@
 package aluguel;
 
 import pessoas.*;
+import utilitarios.UniqueIDGenerator;
 import veiculo.*;
 
 /**
@@ -27,8 +28,8 @@ public class Aluguel implements Identificavel{
      * @param funcionarioResponsavel o funcionário responsável pelo aluguel
      * @param diasDeAluguel o número de dias pelos quais o veículo será alugado
     */
-	public Aluguel(String id, Veiculo veiculo, Cliente cliente, Funcionario funcionarioResponsavel, int diasDeAluguel) {
-        setId(id);
+	public Aluguel(Veiculo veiculo, Cliente cliente, Funcionario funcionarioResponsavel, int diasDeAluguel) {
+        setId(UniqueIDGenerator.generateUniqueID());
         setVeiculo(veiculo);
         setCliente(cliente);
         setFuncionarioResponsavel(funcionarioResponsavel);
@@ -78,7 +79,7 @@ public class Aluguel implements Identificavel{
      * Obtém uma string formatada com as informações do aluguel.
      * @return as informações do aluguel formatadas
      */
-    public String getInfo() { return String.format("Cliente: %s - %s | Funcionario: %s - %s | Veículo: %s - %s, %s - placa: %s | ativo: %s", cliente.getNome(), cliente.getCpf(), funcionarioResponsavel.getNome(), funcionarioResponsavel.getCargo(), veiculo.getTipoVeiculo(), veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), getAtivo() ? "sim": "não");}
+    public String getInfo() { return String.format("Cliente: %s - %s | Funcionario: %s - %s | Veículo: id: %s - %s - %s, %s | placa: %s | ativo: %s", cliente.getNome(), cliente.getCpf(), funcionarioResponsavel.getNome(), funcionarioResponsavel.getCargo(), veiculo.getId(), veiculo.getTipoVeiculo(), veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(), getAtivo() ? "sim": "não");}
     
     /**
      * Obtém o número de dias pelos quais o veículo será alugado.

@@ -60,13 +60,3 @@ public class VeiculoSingleton {
         return tipoCombustivel;
     }
 }
-/*public interface IVeiculo {
-    // tipos fixos
-    //atributos que vou implementar e depois preencher.
-    //IVeiculo deveria ser uma classe abstrata - já  tem os atributos pré preenchidos
-    //Boas práticas de codificação.
-    //Isso é o ideal Podemos transformar a IVeiculo em object - (Singleton) instancia unica que fica alocado na RAM do pc.
-    String tiposVeiculo [] = {"Carro", "Moto", "Patinete"};
-    String tiposCombustivel [] = {"Gasolina", "Diesel", "Hibrido", "Eletrico"}; 
-
-}*/

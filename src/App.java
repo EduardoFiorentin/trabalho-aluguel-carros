@@ -114,13 +114,15 @@ public class App {
                         /*Tenta entra no istema. */
                         sistema.entrar(usuario, senha);
                         login = true; // Login bem sucedido
-                        
+
                         /**Exibe o menu principal e processa a opção escolhida pelo usuário.
                         * Acesso ao sistema após o Login para*/
                         Interface.limparTela();
                         Interface.cabecalhoDoSistema();
                         Interface.mensagemSucesso("Login efetuado com sucesso!");
                         Interface.pausarSistema();
+
+
                         break; 
     
                     }
@@ -138,7 +140,6 @@ public class App {
                 }
                 /*Verifica se o usuário deseja sair */
                 if (!rodando) continue; 
-
 
                 Interface.limparTela();
                 Interface.cabecalhoDoSistema();
@@ -208,7 +209,7 @@ public class App {
                     case '3':/*Lista todos os veículos cadastrados no sistema. */
                         Interface.limparTela();
                         Interface.cabecalhoDoSistema();
-
+ 
                         Interface.mensagem("Veiculos: ");
                         try {
                             /*Lista veículos cadastrados no sistema */
@@ -387,6 +388,9 @@ public class App {
                                 Interface.mensagemDeErro(ex.getMessage());
                                 Interface.pararSistema(scannerPause);
                             }
+                            // catch (StringIndexOutOfBoundsException ex) {
+                            //     continue; 
+                            // }
                         }
 
                         break; 
@@ -395,7 +399,7 @@ public class App {
                              * Caso o Funcionário digite um número que não consta no painel.@interface
                              * Será exibido uma mensagem para opção inválida */
                         Interface.mensagemDeErro("Opção inválida!");
-                        break;
+                        
                 }
             }
         } 

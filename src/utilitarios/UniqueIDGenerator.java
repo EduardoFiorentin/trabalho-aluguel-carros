@@ -1,6 +1,5 @@
 package utilitarios;
-import java.util.UUID;/* Importa a classe UUID do pacote java.util para usar na geração de
-                        identificadores únicos. */
+import java.util.UUID;/* Importa a classe UUID do pacote java.util */
 /**
  * Classe responsável por gerar identificadores únicos.
  * Esta classe contém métodos para gerar identificadores únicos.
