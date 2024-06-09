@@ -1,4 +1,4 @@
-/*Define o pacote e importa as classes e exceções necessárias. */
+00/*Define o pacote e importa as classes e exceções necessárias. */
 import interfaces.Interface;
 import sistema.ISistema;
 import sistema.Sistema;
