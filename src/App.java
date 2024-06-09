@@ -1,4 +1,4 @@
-00/*Define o pacote e importa as classes e exceções necessárias. */
+/*Define o pacote e importa as classes e exceções necessárias. */
 import interfaces.Interface;
 import sistema.ISistema;
 import sistema.Sistema;
@@ -18,40 +18,6 @@ import excecoes.UsuarioNaoEncontrado;
 import excecoes.VeiculoNaoDisponivelException;
 import excecoes.VeiculoNaoEncontradoException; 
 
-// Adição automática
-    // funcionários 
-    // veículos 
-    
-
-// Cadastros
-    // clientes 
-
-
-// Funções do sistema 
-    // cadastrar clientes 
-    // remover clientes 
-    // listar clientes
-    // listar funcionários 
-    // listar veículos 
-    // alugar veículo 
-    // finalizar aluguel de veículo 
-    
-
-// Excessões 
-    // faltam informações (cadastros)
-    // cliente não encontrado
-    // funcionário não encontrado 
-    // veículo não encontrado 
-    // item não encontrado (metodos de pesquisa)
-    // veículo não disponível
-    // aluguel já finalizado 
-    
-
-// correções 
-    // Aluguel - verificar se veículo, funcionário e cliente existem antes de criar um aluguel 
-
-// sistema de login 
-// seleção automatica do funcionário na criação de Aluguel 
 /**
  * Define a classe principal App e o método main para iniciar o aplicativo.
  * Classe principal do aplicativo de gerenciamento de veículos.
@@ -70,25 +36,20 @@ public class App {
         Scanner scannerString = new Scanner(System.in); 
         Scanner scannerChar = new Scanner(System.in); 
         Scanner scannerPause = new Scanner(System.in); 
-        /*Variável para armazenar a opção escolhida pelo usuário */
         char opcaoUsuario = '\0'; 
-        /*Flag para controlar o estado de login */
         Boolean login = false;
+
         /*Instância do sistema */
         ISistema sistema = new Sistema(); 
 
-        
-        
-        // cadastrar cliente 
-        
-        // fazer sistema de log out 
+
         /**
          * Realiza o processo de login no sistema, repetindo até que o login 
          * seja bem-sucedido ou o usuário escolha sair. */
         try {
             /*Loop principal do aplicativo */
             while (rodando) {
-                /*Limpa a tela. */
+
                 Interface.limparTela();
                 
                 /* Loop de login no sistema */
@@ -98,7 +59,7 @@ public class App {
                         Interface.limparTela();
                         Interface.cabecalhoLogin(); 
                         /*Solicita para o funcionário o login. */
-                        Interface.mensagemInput("Digite seu usuário [0 - sair] ");
+                        Interface.mensagem("Digite seu usuário [0 - sair] ");
                         String usuario = scannerString.nextLine().trim();
                         /*Verifica se o usário do sistema deseja sair. */
                         if (usuario.equals("0")) {
@@ -109,7 +70,7 @@ public class App {
                         Interface.limparTela();
                         Interface.cabecalhoLogin();
     
-                        Interface.mensagemInput("Digite sua senha: ");
+                        Interface.mensagem("Digite sua senha: ");
                         String senha = scannerString.nextLine().trim(); 
                         /*Tenta entra no istema. */
                         sistema.entrar(usuario, senha);
@@ -126,13 +87,11 @@ public class App {
                         break; 
     
                     }
-                    /*Captura exceções de runtime e exibe mensagem de erro */
                     catch(RuntimeException ex) {
                         Interface.mensagemDeErro("Um erro inesperado ocorreu ao efetuar o login. Contate o suporte técnico!");
                         Interface.mensagemDeErro(ex.getMessage());
                         
                     }
-                    /*Captura exceção de usuário não encontrado e exibe mensagem de erro */
                     catch(UsuarioNaoEncontrado ex) {
                         Interface.mensagemDeErro(ex.getMessage());
                         Interface.pausarSistema();
@@ -144,7 +103,7 @@ public class App {
                  Interface.limparTela();
                  Interface.cabecalhoDoSistema();
                  Interface.listarOpcoesSistema();
-                 Interface.mensagemInput("Opção: ");
+                 Interface.mensagem("Opção: ");
                  opcaoUsuario = scannerChar.nextLine().charAt(0); 
                  /*Processa a opção do usuário */
                  switch (opcaoUsuario) {
@@ -182,8 +141,13 @@ public class App {
                                  Interface.cabecalhoDoSistema();
                                  Interface.mensagem("Cadastro de cliente: ");
                                  /*Solicita informações do cliente */
-                                 Interface.mensagem("Nome: ");
+                                 Interface.mensagem("Nome: [0 - cancelar]");
                                  String nome = scannerString.nextLine();
+
+                                 if (nome.equals("0")) {
+                                    cadastro = false;
+                                    continue; 
+                                 };
                                  
                                  Interface.mensagem("CPF: ");
                                  String cpf = scannerString.nextLine();
@@ -210,6 +174,9 @@ public class App {
                                  /*Cadastra o cliente no sistema */
                                  sistema.cadastrarCliente(nome, cpf, dataNascimento, endereco, telefone, email, cnh);
  
+                                 Interface.mensagemSucesso("Cliente cadastrado com sucesso!");
+                                 Interface.pararSistema(scannerPause);
+
                                  cadastro = false; 
  
                              } 
@@ -226,12 +193,12 @@ public class App {
                                  /*Captura exceção de informações insuficientes e exibe mensagem de erro */
                                  Interface.mensagemDeErro(ex.getMessage());
                                  Interface.pararSistema(scannerPause);
+                                 
                              }
-                             // catch (StringIndexOutOfBoundsException ex) {
-                             //     continue; 
-                             // }
-                         }
-                         case '3':/*Permite alugar um veículo para um cliente. */
+                            }
+                        break; 
+
+                     case '3':/*Permite alugar um veículo para um cliente. */
                          boolean aluguel = true;
                          while (aluguel) {
                              try {
@@ -284,10 +251,15 @@ public class App {
                          
                          break;
  
+                    /*Solicita dados para finalizar aluguel */
                      case '4':
-                         try {/*Solicita dados para finalizar aluguel */
-                             Interface.mensagem("Cpf do cliente: ");
+                         try {
+                             Interface.limparTela();
+                             Interface.cabecalhoDoSistema();
+                             Interface.mensagem("Cpf do cliente: [0 - cancelar]");
                              String idCliente = scannerString.nextLine();
+
+                             if (idCliente.equals("0")) break; 
  
                              Interface.mensagem("Id do veículo: ");
                              String idVeiculo = scannerString.nextLine(); 
@@ -352,8 +324,8 @@ public class App {
                                  Interface.pararSistema(scannerPause);
                                  break; 
                              }
-                             for (String aluguel : alugueis) {
-                                 Interface.mensagem("\t#"+aluguel);
+                             for (String infoAluguel : alugueis) {
+                                 Interface.mensagem("\t#"+infoAluguel);
                              }
  
                              Interface.pararSistema(scannerPause);
@@ -392,8 +364,34 @@ public class App {
                          }
                          break; 
  
-                     
-                        
+                             /*Opção para remover um cliente*/
+                    case '8': 
+                        Interface.limparTela();
+                        Interface.cabecalhoDoSistema();
+                        Interface.mensagem("Lista de Funcionarios: ");
+
+                         try {
+                             Interface.mensagem("CPF do cliente: [0 - cancelar]");
+                             String cliente = scannerString.nextLine(); 
+
+                             if (cliente.equals("0")) break; 
+                             
+                             sistema.removerCliente(cliente);
+
+                             Interface.mensagemSucesso("Cliente "+ cliente + " removido com sucesso!");
+                             Interface.pararSistema(scannerPause);
+
+                             break; 
+                        }
+                        catch(ClienteNaoEncontradoException ex) {
+                            Interface.mensagemDeErro(ex.getMessage());
+                            Interface.pausarSistema();
+                        }
+                        catch(FuncionarioNaoEncontradoException ex) {
+                            Interface.mensagemDeErro(ex.getMessage());
+                            Interface.pausarSistema();
+                        }
+
                 }
             }
         } 

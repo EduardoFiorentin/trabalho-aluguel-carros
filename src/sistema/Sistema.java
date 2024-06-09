@@ -222,10 +222,12 @@ public class Sistema implements ISistema{
      * 
      * Remove o cliente com o ID fornecido do armazenamento de pessoas cadastrada.
      */
-    public boolean removerCliente(String id) throws FuncionarioNaoEncontradoException{
+    public void removerCliente(String id) throws FuncionarioNaoEncontradoException, ClienteNaoEncontradoException{
         verificarLogin();
 
-        return cadastrados.remover(id); 
+        boolean remocao = cadastrados.remover(id); 
+
+        if (!remocao) throw new ClienteNaoEncontradoException("Cliente com CPF "+id+" não existe!");
     }
 
     /**

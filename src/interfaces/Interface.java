@@ -9,13 +9,6 @@ public class Interface {
      */
     public static void limparTela() {
         System.out.println("\033[H\033[2J"); // limpar terminal antes de começar
-        // try {
-        // if (System.getProperty("os.name").contains("Windows")) {
-        // new ProcessBuilder("cmd", "/c", "clear").inheritIO().start().waitFor();
-        // }
-        // } catch (IOException | InterruptedException ex) {
-        // ex.printStackTrace();
-        // }
     }
      /**
      * Exibe o cabeçalho do sistema de aluguel de veículos.
@@ -39,13 +32,14 @@ public class Interface {
     public static void listarOpcoesSistema() {
         System.out.println("Opções do sistema: ");
         System.out.println("[0] - Sair");
-        System.out.println("[1] - Listar Clientes");
-        System.out.println("[2] - Listar Alugueis");
-        System.out.println("[3] - Listar veiculos");
-        System.out.println("[4] - Novo Aluguel");
-        System.out.println("[5] - Finalizar Aluguel");
-        System.out.println("[6] - Listar Funcionários");
-        System.out.println("[7] - Cadastrar Cliente");
+        System.out.println("[1] - Listar veiculos");
+        System.out.println("[2] - Cadastrar Cliente");
+        System.out.println("[3] - Novo Aluguel");
+        System.out.println("[4] - Finalizar Aluguel");
+        System.out.println("[5] - Listar Clientes");
+        System.out.println("[6] - Listar Alugueis");
+        System.out.println("[7] - Listar Funcionários");
+        System.out.println("[8] - Remover Cliente");
     }
     /**
      * Pausa a execução do sistema por 1 segundo.
@@ -74,25 +68,18 @@ public class Interface {
         System.out.println(mensagem);
     }
     /**
-     * Exibe uma mensagem solicitando uma entrada do usuário.
-     * @param mensagem Texto da mensagem a ser exibida.
-     */
-    public static void mensagemInput(String mensagem) {
-        System.out.println(mensagem);
-    }
-    /**
      * Exibe uma mensagem de sucesso.
      * @param mensagem Texto da mensagem de sucesso.
      */
     public static void mensagemSucesso(String mensagem) {
-        System.out.println(mensagem);
+        System.err.println("\u001B[1;32m"+ mensagem + "\u001B[0m");
     }
     /**
      * Exibe uma mensagem de erro.
      * @param mensagem Texto da mensagem de erro.
      */
     public static void mensagemDeErro(String mensagem) {
-        System.out.println(mensagem);
+        System.err.println("\u001B[1;31m"+ mensagem + "\u001B[0m");
     }
 
 }

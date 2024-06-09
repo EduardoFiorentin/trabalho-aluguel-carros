@@ -57,7 +57,7 @@ public interface ISistema {
      * @param id ID do cliente a ser removido.
      * @return True se a remoção for bem-sucedida, False caso contrário.
      */
-    public boolean removerCliente(String id) throws FuncionarioNaoEncontradoException;
+    public void removerCliente(String id) throws FuncionarioNaoEncontradoException, ClienteNaoEncontradoException;
     /**
      * Cadastra um novo funcionário no sistema.
      * @param id ID do funcionário.
