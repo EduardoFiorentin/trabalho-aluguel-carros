@@ -9,11 +9,6 @@ import excecoes.InformacoesInsuficientesException;
 import excecoes.UsuarioNaoEncontrado;
 import excecoes.VeiculoNaoDisponivelException;
 import excecoes.VeiculoNaoEncontradoException;
-import pessoas.Cliente;
-import pessoas.Funcionario;
-import pessoas.Pessoa;
-import utilitarios.Armazenamento;
-import veiculo.Veiculo;
 
 
 /**
@@ -91,14 +86,6 @@ public interface ISistema {
      * @throws ClienteNaoEncontradoException Exceção lançada se o cliente não for encontrado.
      */
     public void finalizarAluguel(String idCliente, String idVeiculo) throws AluguelNaoEncontradoException, ClienteNaoEncontradoException, FuncionarioNaoEncontradoException;
-    
-    /**
-     * Pesquisa aluguéis realizados por um determinado cliente.
-     * @param idCliente ID do cliente.
-     * @return Lista de aluguéis realizados pelo cliente.
-     * @throws ClienteNaoEncontradoException Exceção lançada se o cliente não for encontrado.
-     */
-    public List<Aluguel> pesquisarAlugadosPorCliente(String idCLiente) throws ClienteNaoEncontradoException, FuncionarioNaoEncontradoException; 
 
      /**
      * Permite que um usuário entre no sistema.

@@ -10,9 +10,7 @@ public class UniqueIDGenerator {
      * @param args Argumentos de linha de comando (não utilizados neste programa).
      */
     public static void main(String[] args) {
-        /*Chama o método generateUniqueID para gerar um ID único e armazena o resultado na variável uniqueID. */
         String uniqueID = generateUniqueID();
-        /*Imprime o ID único gerado no console. */
         System.out.println("Generated Unique ID: " + uniqueID);
     }
     /**
@@ -21,9 +19,7 @@ public class UniqueIDGenerator {
      * @return Uma string representando um identificador único.
      */
     public static String generateUniqueID() {
-        /* Cria uma nova instância de UUID utilizando o método randomUUID, que gera um identificador único universal.*/
         UUID uuid = UUID.randomUUID();
-        /* Converte o UUID para uma string e retorna.*/
         return uuid.toString();
     }
 }

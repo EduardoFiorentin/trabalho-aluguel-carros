@@ -221,6 +221,9 @@ public class App {
                                  /*Aluga veículo para o cliente */
                                  sistema.alugarVeiculo(cpfCliente, idVeiculo, dias);
                                  aluguel = false; 
+
+                                 Interface.mensagemSucesso("Aluguel realizado com sucesso!");
+                                 Interface.pausarSistema();
                              } 
                              catch (RuntimeException ex) {
                                  /*Captura exceções de runtime e exibe mensagem de erro */

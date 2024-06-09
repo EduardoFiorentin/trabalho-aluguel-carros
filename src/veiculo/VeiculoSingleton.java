@@ -20,7 +20,7 @@ public class VeiculoSingleton {
      */
     private VeiculoSingleton() {
         /*Inicializa a lista de tipos de veículos como uma lista imutável. */
-        tipoVeiculo = Collections.unmodifiableList(Arrays.asList("Carro", "Moto", "Patinete"));
+        tipoVeiculo = Collections.unmodifiableList(Arrays.asList("Carro", "Moto"));
         /*Inicializa a lista de tipos de combustíveis como uma lista imutável. */
         tipoCombustivel = Collections.unmodifiableList(Arrays.asList("Gasolina", "Diesel", "Hibrido", "Eletrico"));
     }

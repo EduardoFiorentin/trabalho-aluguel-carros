@@ -20,12 +20,12 @@ public abstract class Pessoa implements Identificavel{
  * @param telefone o telefone da pessoa
  */
     public Pessoa(String id, String nome, String cpf, String endereco, String telefone) {
-        // id ==> cpf
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.endereco = endereco;
-        this.telefone = telefone;
+        // id => cpf
+        setId(id);
+        setNome(nome);
+        setCpf(cpf);
+        setEndereco(endereco);
+        setTelefone(telefone);
     }
 /**
 * Cada método getter e setter é documentado com uma breve descrição do que 

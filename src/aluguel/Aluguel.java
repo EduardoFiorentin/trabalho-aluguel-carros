@@ -129,7 +129,7 @@ public class Aluguel implements Identificavel{
      */
 
     public void iniciar() {
-        veiculo.setDisponivel(false);
+        getVeiculo().setDisponivel(false);
         setAtivo(true);
     }
 
@@ -137,7 +137,7 @@ public class Aluguel implements Identificavel{
      * Finaliza o aluguel, definindo o veículo como disponível e o aluguel como inativo.
      */
     public void finalizar() {
-        veiculo.setDisponivel(true);
+        getVeiculo().setDisponivel(true);
         setAtivo(false);
     }
 
